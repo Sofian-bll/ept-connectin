@@ -25,10 +25,10 @@ final class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            'title'     => fake()->title,
-            'content'   => fake()->text,
-            'media_url' => fake()->word,
-            'author_id' => fake()->randomNumber(),
+            'title'     => fake()->sentence(),
+            'content'   => fake()->paragraphs(3, true),
+            'media_url' => fake()->url(),
+            'author_id' => \App\Models\User::factory(),
         ];
     }
 }

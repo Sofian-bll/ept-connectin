@@ -21,11 +21,7 @@ class PostController extends Controller
      */
     public function index()
     {
-//        $user  = request()->user();
-//        $posts = $user->posts()->paginate();
-//        return PostResource::collection($posts);
-
-        return PostResource::collection(Post::all());
+        return PostResource::collection(Post::orderBy('created_at', 'desc')->paginate());
     }
 
     /**
@@ -45,7 +41,6 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        abort_if(Auth::id() != $post->author_id, 403, 'Access Forbidden');
         return new PostResource($post);
     }
 
@@ -69,6 +64,13 @@ class PostController extends Controller
         abort_if(Auth::id() != $post->author_id, 403, 'Access Forbidden');
         $post->delete();
         return response()->noContent(); // 204
+    }
+
+    public function indexUser(Request $request)
+    {
+        $user  = $request->user();
+        $posts = $user->posts()->orderBy('created_at', 'desc')->paginate();
+        return PostResource::collection($posts);
     }
 }
 

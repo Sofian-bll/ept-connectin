@@ -20,14 +20,27 @@ class LoginController extends Controller
                 'message' => 'The provided credentials are incorrect',
             ], 401);
         }
+
+        $user = Auth::user();
+
+        $token = $user->createToken('auth-token');
+
+        return response()->json([
+            'token' => $token->plainTextToken,
+            'user'  => $user,
+        ], 200);
     }
 
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
+        /** @var \Laravel\Sanctum\PersonalAccessToken $token */
+        $token = $request->user()->currentAccessToken();
+        $token?->delete(); // = if ($token)
 
+        return response()->noContent();
     }
 }

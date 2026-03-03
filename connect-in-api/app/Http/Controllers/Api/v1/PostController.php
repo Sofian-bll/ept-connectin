@@ -21,9 +21,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        $user  = request()->user();
-        $posts = $user->posts()->paginate();
-        return PostResource::collection($posts);
+//        $user  = request()->user();
+//        $posts = $user->posts()->paginate();
+//        return PostResource::collection($posts);
+
+        return PostResource::collection(Post::all());
     }
 
     /**

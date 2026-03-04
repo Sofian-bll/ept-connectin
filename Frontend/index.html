@@ -9,7 +9,7 @@
     <header>
         <nav id="navbar">
             <div>
-                <img>
+                <img alt="" src="">
             </div>
 
             <div>
@@ -52,7 +52,8 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
-        const token = localStorage.getItem("token")
+        const apiUrl = "http://localhost:8000/api/v1";
+        const token  = localStorage.getItem("token")
         const userId = localStorage.getItem("userId")
 
         if (!token) {
@@ -64,8 +65,8 @@
         document.getElementById("logout").addEventListener("click", async () => {
             const token = localStorage.getItem("token")
             try {
-                await axios.post("http://localhost:8000/api/logout", {}, {
-                    headers: { Authorization: `Bearer ${token}` }
+                await axios.post(apiUrl + "/logout", {}, {
+                    headers: {Authorization: `Bearer ${token}`}
                 })
             } catch (err) {
                 console.log("Déconnexion impossible", err)
@@ -76,10 +77,10 @@
         })
 
         const displayPost = (post) => {
-            const card = document.createElement("div")
-            card.id = `post-${post.id}`
-            const image = post.image_path ? `<img src="http://localhost:8000/storage/${post.image_path}" alt="image">` : ""
-            const btnAuth = post.user_id == userId ? `<button onclick="deletePost(${post.id})">Supprimer</button>` : ""
+            const card     = document.createElement("div")
+            card.id        = `post-${post.id}`
+            const image    = post.image_path ? `<img src= {apiUrl} + "storage/${post.image_path}" alt="image">` : ""
+            const btnAuth  = post.user_id === userId ? `<button onclick="deletePost(${post.id})">Supprimer</button>` : ""
             card.innerHTML = `
             <p>${post.user.first_name} ${post.user.last_name}</p>
             <p>${post.title}</p>
@@ -87,13 +88,13 @@
             ${image}
             ${btnAuth}`
 
-        document.getElementById("feed").prepend(card)
+            document.getElementById("feed").prepend(card)
         }
 
         const loadPosts = async () => {
             try {
-                const response = await axios.get("http://localhost:8000/api/posts", {
-                    headers: { Authorization: `Bearer ${token}` }
+                const response                            = await axios.get(apiUrl + "/posts", {
+                    headers: {Authorization: `Bearer ${token}`}
                 })
                 document.getElementById("feed").innerHTML = ""
                 response.data.forEach(post => displayPost(post))
@@ -105,9 +106,9 @@
         loadPosts()
 
         document.getElementById("post-publish").addEventListener("click", async () => {
-            const title = document.getElementById("post-title").value.trim()
+            const title   = document.getElementById("post-title").value.trim()
             const content = document.getElementById("post-content").value.trim()
-            const img = document.getElementById("post-img").files[0]
+            const img     = document.getElementById("post-img").files[0]
 
             if (!content) {
                 document.getElementById("post-error").textContent = "Le post ne peut pas être vide."
@@ -120,27 +121,27 @@
                 formData.append("image", img)
             }
             try {
-                const response = await axios.post("http://localhost:8000/api/posts", formData, {
+                const response = await axios.post(apiUrl + "/posts", formData, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         "Content-Type": "multipart/form-data"
                     }
                 })
                 displayPost(response.data)
-                document.getElementById("post-title").value = ""
+                document.getElementById("post-title").value   = ""
                 document.getElementById("post-content").value = ""
-                document.getElementById("post-img").value = ""
+                document.getElementById("post-img").value     = ""
             } catch (err) {
                 document.getElementById("post-error").textContent = "Publication impossible."
             }
         })
 
         const deletePost = async (postId) => {
-            if (!confirm("Voulez-vous supprimer le post ?")) 
-            return
+            if (!confirm("Voulez-vous supprimer le post ?"))
+                return
             try {
-                await axios.delete(`http://localhost:8000/api/posts/${postId}`, {
-                    headers: { Authorization: `Bearer ${token}` }
+                await axios.delete(apiUrl + `/posts/${postId}`, {
+                    headers: {Authorization: `Bearer ${token}`}
                 })
                 document.getElementById(`post-${postId}`).remove()
             } catch (err) {

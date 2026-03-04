@@ -1,0 +1,37 @@
+# Dependencies (installed inside the container)
+vendor/
+node_modules/
+
+# Environment files (secrets)
+.env
+.env.backup
+.env.production
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Docker (avoid recursive copy)
+docker/
+
+# Testing & coverage
+coverage/
+.phpunit.result.cache
+.phpunit.cache/
+
+# Logs
+storage/logs/
+
+# Storage cache
+storage/framework/cache/
+storage/framework/sessions/
+storage/framework/views/

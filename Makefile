@@ -1,4 +1,17 @@
-.PHONY: up down build migrate fresh seed shell routes test
+.PHONY: install up down build migrate fresh seed shell tinker routes test
+
+# First-time project setup (after git clone)
+install:
+	@command -v php >/dev/null 2>&1 || { echo "Error: PHP is not installed."; exit 1; }
+	@command -v composer >/dev/null 2>&1 || { echo "Error: Composer is not installed."; exit 1; }
+	@command -v docker >/dev/null 2>&1 || { echo "Error: Docker is not installed. Install OrbStack (https://orbstack.dev) or Docker Desktop."; exit 1; }
+	@echo "Setting up ConnectIN..."
+	cp backend/.env.example backend/.env
+	cd backend && composer install
+	cd backend && ./vendor/bin/sail up -d
+	cd backend && ./vendor/bin/sail artisan key:generate
+	cd backend && ./vendor/bin/sail artisan migrate
+	@echo "Done! Backend running on http://localhost"
 
 # Start all containers in background
 up:
@@ -27,6 +40,10 @@ seed:
 # Open a bash shell inside the backend container
 shell:
 	cd backend && ./vendor/bin/sail shell
+
+# Open Laravel Tinker (interactive PHP/Laravel console)
+tinker:
+	cd backend && ./vendor/bin/sail artisan tinker
 
 # List all API routes
 routes:

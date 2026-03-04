@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\v1\CommentController;
 use App\Http\Controllers\Api\v1\PostController;
-use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +18,12 @@ Route::prefix('v1')->group(function () {
         });
         Route::get('user/posts', [ PostController::class, 'indexUser' ]);
 
+        // Posts Routes
         Route::apiResource('/posts', PostController::class);
+
+        // Comments Routes (nested under posts)
+        Route::apiResource('posts/{post}/comments', CommentController::class)
+            ->except([ 'show' ]);
     });
 });
 

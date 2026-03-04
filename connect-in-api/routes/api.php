@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Route;
 // Prefix v1 -> /v1/user
 Route::prefix('v1')->group(function () {
 
-    // Public
-    Route::apiResource('/posts', PostController::class)->only([ 'index', 'show' ]); // Posts Routes
-
     // Protected
     Route::middleware([ 'auth:sanctum' ])->group(function () {
 
@@ -21,8 +18,7 @@ Route::prefix('v1')->group(function () {
         });
         Route::get('user/posts', [ PostController::class, 'indexUser' ]);
 
-        // Posts Routes
-        Route::apiResource('/posts', PostController::class)->except([ 'index', 'show' ]);
+        Route::apiResource('/posts', PostController::class);
     });
 });
 

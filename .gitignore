@@ -10,34 +10,34 @@
 Thumbs.db
 
 # Laravel
-connect-in-api/vendor/
-connect-in-api/.env
-connect-in-api/.env.backup
-connect-in-api/.env.production
-connect-in-api/storage/*.key
-connect-in-api/storage/logs/*.log
-connect-in-api/storage/framework/cache/*
-connect-in-api/storage/framework/sessions/*
-connect-in-api/storage/framework/views/*
-connect-in-api/bootstrap/cache/*
+backend/vendor/
+backend/.env
+backend/.env.backup
+backend/.env.production
+backend/storage/*.key
+backend/storage/logs/*.log
+backend/storage/framework/cache/*
+backend/storage/framework/sessions/*
+backend/storage/framework/views/*
+backend/bootstrap/cache/*
 
 # PHP
-connect-in-api/composer.lock
+backend/composer.lock
 
 # Node
-connect-in-api/node_modules/
-connect-in-api/npm-debug.log
-connect-in-api/yarn-error.log
-connect-in-api/package-lock.json
-connect-in-api/yarn.lock
+backend/node_modules/
+backend/npm-debug.log
+backend/yarn-error.log
+backend/package-lock.json
+backend/yarn.lock
 
 # Public Assets (compiled)
-connect-in-api/public/hot
-connect-in-api/public/storage
-connect-in-api/public/css/
-connect-in-api/public/js/
-connect-in-api/public/mix-manifest.json
+backend/public/hot
+backend/public/storage
+backend/public/css/
+backend/public/js/
+backend/public/mix-manifest.json
 
 # Testing
-connect-in-api/.phpunit.result.cache
-connect-in-api/coverage/
+backend/.phpunit.result.cache
+backend/coverage/

@@ -26,10 +26,7 @@ backend/composer.lock
 
 # Node
 backend/node_modules/
-backend/npm-debug.log
-backend/yarn-error.log
 backend/package-lock.json
-backend/yarn.lock
 
 # Public Assets (compiled)
 backend/public/hot
@@ -40,4 +37,7 @@ backend/public/mix-manifest.json
 
 # Testing
 backend/.phpunit.result.cache
+backend/.phpunit.cache/
 backend/coverage/
+
+

@@ -4,15 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Like extends Model
 {
-    protected $fillable = [
-        'author_id',
-        'post_id'
-    ];
+    protected $fillable = [ 'user_id', 'post_id' ];
 
     public function user(): BelongsTo
     {

@@ -4,16 +4,13 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 
-/** TODO
- * Remplir les Crud function dans le POST Controller
- * Gerer la pagination
- */
 class PostController extends Controller
 {
     /**
@@ -21,7 +18,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        return PostResource::collection(Post::orderBy('created_at', 'desc')->paginate());
+        return PostResource::collection(
+            Post::withCount('likes')->orderBy('created_at', 'desc')->paginate()
+        );
     }
 
     /**
@@ -29,10 +28,9 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        $data              = $request->validated();
-        $data['author_id'] = $request->user()->id;
+        $post = $request->user()->posts()->create($request->validated());
+        $post->loadCount('likes');
 
-        $post = Post::create($data);
         return new PostResource($post);
     }
 
@@ -41,18 +39,21 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        $post->loadCount('likes');
+
         return new PostResource($post);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(StorePostRequest $request, Post $post)
+    public function update(UpdatePostRequest $request, Post $post)
     {
-        abort_if(Auth::id() != $post->author_id, 403, 'Access Forbidden');
+        abort_if(Auth::id() !== $post->user_id, 403, 'Forbidden');
 
-        $data = $request->validated();
-        $post->update($data);
+        $post->update($request->validated());
+        $post->loadCount('likes');
+
         return new PostResource($post);
     }
 
@@ -61,15 +62,22 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        abort_if(Auth::id() != $post->author_id, 403, 'Access Forbidden');
+        abort_if(Auth::id() !== $post->user_id, 403, 'Forbidden');
         $post->delete();
-        return response()->noContent(); // 204
+
+        return response()->noContent();
     }
 
+    /**
+     * Display posts for the authenticated user.
+     */
     public function indexUser(Request $request)
     {
-        $user  = $request->user();
-        $posts = $user->posts()->orderBy('created_at', 'desc')->paginate();
+        $posts = $request->user()->posts()
+            ->withCount('likes')
+            ->orderBy('created_at', 'desc')
+            ->paginate();
+
         return PostResource::collection($posts);
     }
 }

@@ -17,9 +17,9 @@ class CommentResource extends JsonResource
             'id'         => $this->id,
             'content'    => $this->content,
             'post_id'    => $this->post_id,
-            'author_id'  => $this->author_id,
-            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
-            'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
+            'user_id'    => $this->user_id,
+            'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
+            'updated_at' => $this->updated_at?->format('Y-m-d H:i:s'),
         ];
     }
 }

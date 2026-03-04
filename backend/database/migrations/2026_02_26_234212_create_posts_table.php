@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('title');
             $table->text('content');
             $table->string('media_url')->nullable();
-            $table->foreignIdFor(\App\Models\User::class, 'author_id')->constrained();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

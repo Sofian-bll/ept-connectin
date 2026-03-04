@@ -15,14 +15,15 @@ class PostResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'         => $this->id,
-            'title'      => $this->title,
-            'content'    => $this->content,
-            'media_url'  => $this->media_url,
-            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
-            'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
-            'author_id'  => $this->author_id,
-            //            'author'     => new UserResource($this->whenLoaded('author')), /** Todo Create User Resource */
+            'id'          => $this->id,
+            'title'       => $this->title,
+            'content'     => $this->content,
+            'media_url'   => $this->media_url,
+            'user_id'     => $this->user_id,
+            'likes_count' => $this->likes_count ?? 0,
+            'is_liked'    => $this->likes()->where('user_id', $request->user()?->id)->exists(),
+            'created_at'  => $this->created_at?->format('Y-m-d H:i:s'),
+            'updated_at'  => $this->updated_at?->format('Y-m-d H:i:s'),
         ];
     }
 }

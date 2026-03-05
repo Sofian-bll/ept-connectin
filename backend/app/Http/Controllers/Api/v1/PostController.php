@@ -30,6 +30,7 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         $data = $request->validated();
+        unset($data['media']);
 
         if ($request->hasFile('media')) {
             $data['media_url'] = $request->file('media')->store('media', 'public');
@@ -59,6 +60,7 @@ class PostController extends Controller
         abort_if(Auth::id() !== $post->user_id, 403, 'Forbidden');
 
         $data = $request->validated();
+        unset($data['media']);
 
         if ($request->hasFile('media')) {
             if ($post->media_url) {

@@ -28,20 +28,23 @@ final class UserFactory extends Factory
      */
     public function definition(): array
     {
-        $avatar = null;
-        
-        if (fake()->boolean(80)) {
-            $file = UploadedFile::fake()->image('avatar.jpg', width: 200, height: 200);
-            $avatar = $file->storeAs('avatars', Str::random(40) . '.jpg', 'public');
-        }
-
         return [
             'name'              => fake()->name,
             'email'             => fake()->safeEmail,
             'email_verified_at' => fake()->optional()->datetime(),
             'password'          => bcrypt(fake()->password),
             'remember_token' => Str::random(10),
-            'avatar'            => $avatar,
         ];
+    }
+
+    public function configure(): static
+    {
+        return $this->afterCreating(function (User $user) {
+            if (fake()->boolean(80)) {
+                $file = UploadedFile::fake()->image('avatar.jpg', width: 200, height: 200);
+                $path = $file->storeAs('avatars', $user->id . '.jpg', 'public');
+                $user->updateQuietly([ 'avatar' => $path ]);
+            }
+        });
     }
 }

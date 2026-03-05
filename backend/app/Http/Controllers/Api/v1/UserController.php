@@ -76,6 +76,12 @@ class UserController extends Controller
                 'avatar'   => null,
             ]);
         } else {
+            if ($user->avatar) {
+                Storage::disk('public')->delete($user->avatar);
+            }
+            foreach ($user->posts()->whereNotNull('media_url')->get() as $post) {
+                Storage::disk('public')->delete($post->media_url);
+            }
             $user->tokens()->delete();
             $user->delete();
         }

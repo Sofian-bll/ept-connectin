@@ -21,6 +21,7 @@ Route::prefix('v1')->group(function () {
         Route::put('/user', [ UserController::class, 'update' ]);
         Route::put('/user/password', [ UserController::class, 'updatePassword' ]);
         Route::get('/users/{user}', [ UserController::class, 'show' ]);
+        Route::delete('user', [ UserController::class, 'destroy' ]);
 
         // User Ressources
         Route::get('user/posts', [ PostController::class, 'indexUser' ])->name('user.posts');

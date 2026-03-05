@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Database\Factories;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -28,7 +29,7 @@ final class PostFactory extends Factory
             'title'     => fake()->sentence(),
             'content'   => fake()->paragraphs(3, true),
             'media_url' => fake()->url(),
-            'author_id' => \App\Models\User::factory(),
+            'user_id' => User::factory(),
         ];
     }
 }

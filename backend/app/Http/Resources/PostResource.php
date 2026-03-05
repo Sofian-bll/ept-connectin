@@ -19,7 +19,7 @@ class PostResource extends JsonResource
             'title'       => $this->title,
             'content'     => $this->content,
             'media_url'   => $this->media_url,
-            'user_id'     => $this->user_id,
+            'author' => new UserResource($this->whenLoaded('user')),
             'likes_count' => $this->likes_count ?? 0,
             'is_liked'    => $this->likes()->where('user_id', $request->user()?->id)->exists(),
             'created_at'  => $this->created_at?->format('Y-m-d H:i:s'),

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
 class RegisteredUserController extends Controller
@@ -27,7 +26,7 @@ class RegisteredUserController extends Controller
         $user = User::create([
             'name'     => $request->name,
             'email'    => $request->email,
-            'password' => Hash::make($request->string('password')),
+            'password' => $request->string('password'),
         ]);
 
         // Create Token
@@ -35,8 +34,8 @@ class RegisteredUserController extends Controller
 
         // 204 No Content
         return response()->json([
-            'user'  => $user,
-            'token' => $token->plainTextToken
+            'user'  => $user->only('id', 'name', 'email'),
+            'token' => $token->plainTextToken,
         ], 201);
     }
 

@@ -7,18 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-/**
- * @property mixed $author_id
- */
 class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ 'title', 'content', 'media_url', 'author_id' ];
+    protected $fillable = [ 'title', 'content', 'media_url' ];
 
-    public function author(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'author_id');
+        return $this->belongsTo(User::class);
     }
 
     public function comments(): HasMany
@@ -26,4 +23,8 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function likes(): HasMany
+    {
+        return $this->hasMany(Like::class);
+    }
 }

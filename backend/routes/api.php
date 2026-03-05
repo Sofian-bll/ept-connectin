@@ -1,31 +1,35 @@
 <?php
 
 use App\Http\Controllers\Api\v1\CommentController;
+use App\Http\Controllers\Api\v1\LikeController;
 use App\Http\Controllers\Api\v1\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
-// Prefix v1 -> /v1/user
 Route::prefix('v1')->group(function () {
 
-    // Protected
+    // Auth Routes [Public]
+    require __DIR__ . '/auth.php';
+
+    // Protected Routes
     Route::middleware([ 'auth:sanctum' ])->group(function () {
 
-        // User Routes
+        // User
         Route::get('/user', function (Request $request) {
             return $request->user();
         });
-        Route::get('user/posts', [ PostController::class, 'indexUser' ]);
+        Route::get('user/posts', [ PostController::class, 'indexUser' ])->name('user.posts');
 
-        // Posts Routes
-        Route::apiResource('/posts', PostController::class);
+        // Posts
+        Route::apiResource('posts', PostController::class);
 
-        // Comments Routes (nested under posts)
-        Route::apiResource('posts/{post}/comments', CommentController::class)
-            ->except([ 'show' ]);
+        // Comments (nested under posts, scoped)
+        Route::apiResource('posts.comments', CommentController::class)
+            ->except([ 'show' ])
+            ->scoped();
+
+        // Likes
+        Route::post('posts/{post}/like', [ LikeController::class, 'toggle' ])->name('posts.like');
     });
 });
-
-// Auth Routes [Public]
-require __DIR__ . '/auth.php';

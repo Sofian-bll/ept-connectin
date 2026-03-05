@@ -29,8 +29,8 @@ class CommentController extends Controller
     public function store(StoreCommentRequest $request, Post $post)
     {
         $comment = $post->comments()->create([
-            'content'   => $request->validated()['content'],
-            'author_id' => $request->user()->id,
+            'content' => $request->validated()['content'],
+            'user_id' => $request->user()->id,
         ]);
 
         return new CommentResource($comment);
@@ -41,7 +41,7 @@ class CommentController extends Controller
      */
     public function update(UpdateCommentRequest $request, Post $post, Comment $comment)
     {
-        abort_if(Auth::id() !== $comment->author_id, 403, 'Forbidden');
+        abort_if(Auth::id() !== $comment->user_id, 403, 'Forbidden');
 
         $comment->update($request->validated());
 
@@ -53,7 +53,7 @@ class CommentController extends Controller
      */
     public function destroy(Request $request, Post $post, Comment $comment)
     {
-        abort_if($request->user()->id !== $comment->author_id, 403, 'Forbidden');
+        abort_if($request->user()->id !== $comment->user_id, 403, 'Forbidden');
 
         $comment->delete();
 

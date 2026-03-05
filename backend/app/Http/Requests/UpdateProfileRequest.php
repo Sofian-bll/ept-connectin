@@ -27,7 +27,7 @@ class UpdateProfileRequest extends FormRequest
                 'sometimes', 'string', 'email', 'max:255',
                 Rule::unique('users', 'email')->ignore($this->user()->id)
             ],
-            'avatar' => 'nullable|string|max:2700000'
+            'avatar' => 'nullable|image|max:2048'
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class PostResource extends JsonResource
 {
@@ -18,7 +19,7 @@ class PostResource extends JsonResource
             'id'          => $this->id,
             'title'       => $this->title,
             'content'     => $this->content,
-            'media_url'   => $this->media_url,
+            'media_url'   => $this->media_url ? Storage::url($this->media_url) : null,
             'author' => new UserResource($this->whenLoaded('user')),
             'likes_count' => $this->likes_count ?? 0,
             'is_liked'    => $this->likes()->where('user_id', $request->user()?->id)->exists(),

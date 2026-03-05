@@ -19,7 +19,7 @@ class PostController extends Controller
     public function index()
     {
         return PostResource::collection(
-            Post::withCount('likes')->orderBy('created_at', 'desc')->paginate()
+            Post::with('user')->withCount('likes')->orderBy('created_at', 'desc')->paginate(),
         );
     }
 
@@ -29,7 +29,7 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         $post = $request->user()->posts()->create($request->validated());
-        $post->loadCount('likes');
+        $post->load('user')->loadCount('likes');
 
         return new PostResource($post);
     }
@@ -39,7 +39,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $post->loadCount('likes');
+        $post->load('user')->loadCount('likes');
 
         return new PostResource($post);
     }
@@ -52,7 +52,7 @@ class PostController extends Controller
         abort_if(Auth::id() !== $post->user_id, 403, 'Forbidden');
 
         $post->update($request->validated());
-        $post->loadCount('likes');
+        $post->load('user')->loadCount('likes');
 
         return new PostResource($post);
     }
@@ -74,7 +74,7 @@ class PostController extends Controller
     public function indexUser(Request $request)
     {
         $posts = $request->user()->posts()
-            ->withCount('likes')
+            ->with('user')->withCount('likes')
             ->orderBy('created_at', 'desc')
             ->paginate();
 

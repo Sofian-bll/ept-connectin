@@ -19,7 +19,7 @@ class CommentController extends Controller
     public function index(Post $post)
     {
         return CommentResource::collection(
-            $post->comments()->orderBy('created_at', 'desc')->paginate()
+            $post->comments()->with('user')->orderBy('created_at', 'desc')->paginate()
         );
     }
 
@@ -33,6 +33,8 @@ class CommentController extends Controller
             'user_id' => $request->user()->id,
         ]);
 
+        $comment->load('user');
+
         return new CommentResource($comment);
     }
 
@@ -44,6 +46,7 @@ class CommentController extends Controller
         abort_if(Auth::id() !== $comment->user_id, 403, 'Forbidden');
 
         $comment->update($request->validated());
+        $comment->load('user');
 
         return new CommentResource($comment);
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Password;
@@ -34,7 +35,7 @@ class RegisteredUserController extends Controller
 
         // 204 No Content
         return response()->json([
-            'user'  => $user->only('id', 'name', 'email'),
+            'user' => new UserResource($user),
             'token' => $token->plainTextToken,
         ], 201);
     }

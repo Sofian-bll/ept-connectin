@@ -9,6 +9,7 @@ use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 
 class PostController extends Controller
@@ -28,7 +29,14 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        $post = $request->user()->posts()->create($request->validated());
+        $data = $request->validated();
+        unset($data['media']);
+
+        if ($request->hasFile('media')) {
+            $data['media_url'] = $request->file('media')->store('media', 'public');
+        }
+
+        $post = $request->user()->posts()->create($data);
         $post->load('user')->loadCount('likes');
 
         return new PostResource($post);
@@ -51,7 +59,17 @@ class PostController extends Controller
     {
         abort_if(Auth::id() !== $post->user_id, 403, 'Forbidden');
 
-        $post->update($request->validated());
+        $data = $request->validated();
+        unset($data['media']);
+
+        if ($request->hasFile('media')) {
+            if ($post->media_url) {
+                Storage::disk('public')->delete($post->media_url);
+            }
+            $data['media_url'] = $request->file('media')->store('media', 'public');
+        }
+
+        $post->update($data);
         $post->load('user')->loadCount('likes');
 
         return new PostResource($post);
@@ -63,6 +81,11 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         abort_if(Auth::id() !== $post->user_id, 403, 'Forbidden');
+        
+        if ($post->media_url) {
+            Storage::disk('public')->delete($post->media_url);
+        }
+        
         $post->delete();
 
         return response()->noContent();

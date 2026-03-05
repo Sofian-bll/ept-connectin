@@ -8,6 +8,7 @@ use App\Http\Resources\UserResource;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -26,7 +27,20 @@ class UserController extends Controller
     public function update(UpdateProfileRequest $request)
     {
         $user = $request->user();
-        $user->update($request->validated());
+        $data = $request->validated();
+
+        if ($request->hasFile('avatar')) {
+            if ($user->avatar) {
+                Storage::disk('public')->delete($user->avatar);
+            }
+            $data['avatar'] = $request->file('avatar')->storeAs(
+                'avatars',
+                $user->id . '.' . $request->file('avatar')->extension(),
+                'public'
+            );
+        }
+
+        $user->update($data);
 
         return new UserResource($user);
     }
@@ -52,6 +66,9 @@ class UserController extends Controller
         if ($strategy === 'anonymize') {
             $user->likes()->delete();
             $user->tokens()->delete();
+            if ($user->avatar) {
+                Storage::disk('public')->delete($user->avatar);
+            }
             $user->update([
                 'name'     => 'Deleted User',
                 'email'    => 'deleted_' . $user->id . '_' . time() . '@deleted.invalid',
@@ -59,6 +76,12 @@ class UserController extends Controller
                 'avatar'   => null,
             ]);
         } else {
+            if ($user->avatar) {
+                Storage::disk('public')->delete($user->avatar);
+            }
+            foreach ($user->posts()->whereNotNull('media_url')->get() as $post) {
+                Storage::disk('public')->delete($post->media_url);
+            }
             $user->tokens()->delete();
             $user->delete();
         }

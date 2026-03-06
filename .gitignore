@@ -27,6 +27,9 @@ backend/composer.lock
 # Node
 backend/node_modules/
 backend/package-lock.json
+frontend/node_modules/
+frontend/package-lock.json
+frontend/.vite/
 
 # Public Assets (compiled)
 backend/public/hot

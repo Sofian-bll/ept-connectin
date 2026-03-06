@@ -80,11 +80,18 @@ class UserController extends Controller
                 Storage::disk('public')->delete($user->avatar);
             }
             $user->update([
-                'name'     => 'Deleted User',
-                'email'    => 'deleted_' . $user->id . '_' . time() . '@deleted.invalid',
-                'password' => Str::random(32),
-                'avatar'   => null,
+                'first_name'        => 'Deleted',
+                'last_name'         => 'User',
+                'name'              => 'Deleted User',
+                'email'             => 'deleted_' . $user->id . '_' . time() . '@deleted.invalid',
+                'password'          => Str::random(32),
+                'avatar'            => null,
+                'birthday'          => null,
+                'birthplace_city'   => null,
+                'birthplace_country' => null,
+                'bio'               => null,
             ]);
+            $user->delete();
         } else {
             if ($user->avatar) {
                 Storage::disk('public')->delete($user->avatar);

@@ -1,0 +1,22 @@
+meta {
+  name: Create Post
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/posts
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "title": "My First Post",
+    "content": "This is the content of my first post on Connect'IN."
+  }
+}

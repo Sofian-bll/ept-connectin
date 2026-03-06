@@ -22,12 +22,18 @@ class UpdateProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'   => 'sometimes|string|max:255',
-            'email'  => [
+            'first_name'        => 'sometimes|string|max:255',
+            'last_name'         => 'sometimes|string|max:255',
+            'name'              => 'sometimes|string|max:255',
+            'email'             => [
                 'sometimes', 'string', 'email', 'max:255',
-                Rule::unique('users', 'email')->ignore($this->user()->id)
+                Rule::unique('users', 'email')->ignore($this->user()->id),
             ],
-            'avatar' => 'nullable|image|max:2048'
+            'avatar'            => 'nullable|image|max:2048',
+            'birthday'          => 'sometimes|nullable|date',
+            'birthplace_city'   => 'sometimes|nullable|string|max:255',
+            'birthplace_country' => 'sometimes|nullable|string|max:255',
+            'bio'               => 'sometimes|nullable|string|max:1000',
         ];
     }
 }

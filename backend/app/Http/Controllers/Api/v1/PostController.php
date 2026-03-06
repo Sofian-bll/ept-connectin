@@ -7,16 +7,19 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
+use Dedoc\Scramble\Attributes\Endpoint;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-
+/**
+ * @tags Posts
+ */
+#[Group('Posts', weight: 2)]
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    #[Endpoint(title: 'List Posts')]
     public function index()
     {
         return PostResource::collection(
@@ -24,9 +27,7 @@ class PostController extends Controller
         );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    #[Endpoint(title: 'Create Post')]
     public function store(StorePostRequest $request)
     {
         $data = $request->validated();
@@ -42,9 +43,7 @@ class PostController extends Controller
         return new PostResource($post);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    #[Endpoint(title: 'Get Post')]
     public function show(Post $post)
     {
         $post->load('user')->loadCount('likes');
@@ -52,9 +51,7 @@ class PostController extends Controller
         return new PostResource($post);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    #[Endpoint(title: 'Update Post')]
     public function update(UpdatePostRequest $request, Post $post)
     {
         abort_if(Auth::id() !== $post->user_id, 403, 'Forbidden');
@@ -75,25 +72,21 @@ class PostController extends Controller
         return new PostResource($post);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    #[Endpoint(title: 'Delete Post')]
     public function destroy(Post $post)
     {
         abort_if(Auth::id() !== $post->user_id, 403, 'Forbidden');
-        
+
         if ($post->media_url) {
             Storage::disk('public')->delete($post->media_url);
         }
-        
+
         $post->delete();
 
         return response()->noContent();
     }
 
-    /**
-     * Display posts for the authenticated user.
-     */
+    #[Endpoint(title: 'My Posts')]
     public function indexUser(Request $request)
     {
         $posts = $request->user()->posts()
@@ -104,5 +97,3 @@ class PostController extends Controller
         return PostResource::collection($posts);
     }
 }
-
-

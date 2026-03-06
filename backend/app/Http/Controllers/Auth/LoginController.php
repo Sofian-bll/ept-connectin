@@ -4,11 +4,18 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use Dedoc\Scramble\Attributes\Endpoint;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * @tags Auth
+ */
+#[Group('Auth', weight: 0)]
 class LoginController extends Controller
 {
+    #[Endpoint(title: 'Login')]
     public function store(Request $request)
     {
         $credentials = $request->validate([
@@ -32,15 +39,12 @@ class LoginController extends Controller
         ], 200);
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     */
+    #[Endpoint(title: 'Logout')]
     public function destroy(Request $request)
     {
         /** @var \Laravel\Sanctum\PersonalAccessToken $token */
         $token = $request->user()->currentAccessToken();
-        $token?->delete(); // = if ($token)
+        $token?->delete();
 
         return response()->noContent();
     }

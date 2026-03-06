@@ -5,14 +5,18 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Models\Like;
 use App\Models\Post;
+use Dedoc\Scramble\Attributes\Endpoint;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
+/**
+ * @tags Likes
+ */
+#[Group('Likes', weight: 4)]
 class LikeController extends Controller
 {
-    /**
-     * Toggle like/unlike on a post
-     */
+    #[Endpoint(title: 'Toggle Like')]
     public function toggle(Request $request, Post $post): JsonResponse
     {
         $like = Like::where('user_id', $request->user()->id)

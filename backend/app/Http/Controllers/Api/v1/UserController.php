@@ -7,23 +7,31 @@ use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Dedoc\Scramble\Attributes\Endpoint;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
+/**
+ * @tags Users
+ */
+#[Group('Users', weight: 1)]
 class UserController extends Controller
 {
-    /**
-     * Display the specified resource.
-     */
+    #[Endpoint(title: 'Get My Profile')]
+    public function me(Request $request)
+    {
+        return new UserResource($request->user());
+    }
+
+    #[Endpoint(title: 'Get User')]
     public function show(User $user)
     {
         return new UserResource($user);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    #[Endpoint(title: 'Update Profile')]
     public function update(UpdateProfileRequest $request)
     {
         $user = $request->user();
@@ -45,6 +53,7 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
+    #[Endpoint(title: 'Update Password')]
     public function updatePassword(UpdatePasswordRequest $request)
     {
         $user = $request->user();
@@ -53,6 +62,7 @@ class UserController extends Controller
         return response()->json([ 'message' => 'Password updated successfully' ]);
     }
 
+    #[Endpoint(title: 'Delete Account')]
     public function destroy(Request $request)
     {
         $strategy = $request->query('strategy');

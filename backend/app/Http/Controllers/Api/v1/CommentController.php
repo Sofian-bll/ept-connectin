@@ -8,14 +8,18 @@ use App\Http\Requests\UpdateCommentRequest;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
 use App\Models\Post;
+use Dedoc\Scramble\Attributes\Endpoint;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * @tags Comments
+ */
+#[Group('Comments', weight: 3)]
 class CommentController extends Controller
 {
-    /**
-     * Display a listing of comments for a post.
-     */
+    #[Endpoint(title: 'List Comments')]
     public function index(Post $post)
     {
         return CommentResource::collection(
@@ -23,9 +27,7 @@ class CommentController extends Controller
         );
     }
 
-    /**
-     * Store a newly created comment.
-     */
+    #[Endpoint(title: 'Create Comment')]
     public function store(StoreCommentRequest $request, Post $post)
     {
         $comment = $post->comments()->create([
@@ -38,9 +40,7 @@ class CommentController extends Controller
         return new CommentResource($comment);
     }
 
-    /**
-     * Update the specified comment.
-     */
+    #[Endpoint(title: 'Update Comment')]
     public function update(UpdateCommentRequest $request, Post $post, Comment $comment)
     {
         abort_if(Auth::id() !== $comment->user_id, 403, 'Forbidden');
@@ -51,9 +51,7 @@ class CommentController extends Controller
         return new CommentResource($comment);
     }
 
-    /**
-     * Remove the specified comment.
-     */
+    #[Endpoint(title: 'Delete Comment')]
     public function destroy(Request $request, Post $post, Comment $comment)
     {
         abort_if($request->user()->id !== $comment->user_id, 403, 'Forbidden');

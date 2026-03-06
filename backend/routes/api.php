@@ -3,10 +3,8 @@
 use App\Http\Controllers\Api\v1\CommentController;
 use App\Http\Controllers\Api\v1\LikeController;
 use App\Http\Controllers\Api\v1\PostController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\v1\UserController;
-use App\Http\Resources\UserResource;
 
 Route::prefix('v1')->group(function () {
 
@@ -17,7 +15,7 @@ Route::prefix('v1')->group(function () {
     Route::middleware([ 'auth:sanctum' ])->group(function () {
 
         // User
-        Route::get('/user', fn(Request $request) => new UserResource($request->user()));
+        Route::get('/user', [ UserController::class, 'me' ]);
         Route::put('/user', [ UserController::class, 'update' ]);
         Route::put('/user/password', [ UserController::class, 'updatePassword' ]);
         Route::get('/users/{user}', [ UserController::class, 'show' ]);

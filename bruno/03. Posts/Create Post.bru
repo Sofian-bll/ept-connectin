@@ -1,0 +1,24 @@
+meta {
+  name: Create Post
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/posts
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "title": "Ce jour je suis devenu Raciste",
+    "content": "En voyant ma mère se faire dévorer par un mexicain, c'est un que je suis devenu RACISTE.",
+    "media_url": null,
+    "author_id": 1
+  }
+}

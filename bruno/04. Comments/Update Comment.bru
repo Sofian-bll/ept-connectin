@@ -1,0 +1,21 @@
+meta {
+  name: Update Comment
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{baseUrl}}/posts/2/comments/2
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "content": "NICUUUUUU V2"
+  }
+}

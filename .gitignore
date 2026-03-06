@@ -41,3 +41,4 @@ backend/.phpunit.cache/
 backend/coverage/
 
 
+/.ai/

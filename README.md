@@ -1,11 +1,4 @@
 <a id="readme-top"></a>
-
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stars][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-
-<br />
 <div align="center">
   <a href="https://github.com/EpitechWebAcademiePromo2027/W-WEB-103-PAR-1-1-connect_in-20">
     <img src="docs/logo.png" alt="Logo" width="80" height="80">
@@ -15,10 +8,11 @@
 
   <p align="center">
     Réseau social interne pour ESN — API REST Laravel + Vue.js
-    <br />
+    <br/>
+    <br/>
     <a href="http://localhost/docs/api"><strong>Documentation API »</strong></a>
-    <br />
-    <br />
+    <br/>
+    <br/>
     <a href="https://github.com/EpitechWebAcademiePromo2027/W-WEB-103-PAR-1-1-connect_in-20/issues/new">Reporter un bug</a>
   </p>
 </div>

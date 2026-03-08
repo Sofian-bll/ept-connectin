@@ -45,16 +45,16 @@
   <Dialog :open="open" @update:open="emit('update:open', $event)">
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>Edit post</DialogTitle>
-        <DialogDescription>Make changes to your post.</DialogDescription>
+        <DialogTitle>Modifier le post</DialogTitle>
+        <DialogDescription>Modifiez votre post.</DialogDescription>
       </DialogHeader>
       <form @submit.prevent="handleSave" class="space-y-4">
         <Field>
-          <FieldLabel>Title</FieldLabel>
+          <FieldLabel>Titre</FieldLabel>
           <Input v-model="title" required />
         </Field>
         <Field>
-          <FieldLabel>Content</FieldLabel>
+          <FieldLabel>Contenu</FieldLabel>
           <Textarea v-model="content" rows="4" required />
         </Field>
         <DialogFooter>
@@ -63,9 +63,9 @@
             variant="outline"
             @click="emit('update:open', false)"
           >
-            Cancel
+            Annuler
           </Button>
-          <Button type="submit">Save</Button>
+          <Button type="submit">Enregistrer</Button>
         </DialogFooter>
       </form>
     </DialogContent>

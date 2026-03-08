@@ -21,14 +21,14 @@
 
   function timeAgo(date) {
     const seconds = Math.floor((new Date() - new Date(date)) / 1000)
-    if (seconds < 60) return 'just now'
+    if (seconds < 60) return 'à l\'instant'
     const minutes = Math.floor(seconds / 60)
-    if (minutes < 60) return `${minutes}m ago`
+    if (minutes < 60) return `il y a ${minutes}m`
     const hours = Math.floor(minutes / 60)
-    if (hours < 24) return `${hours}h ago`
+    if (hours < 24) return `il y a ${hours}h`
     const days = Math.floor(hours / 24)
-    if (days < 30) return `${days}d ago`
-    return new Date(date).toLocaleDateString()
+    if (days < 30) return `il y a ${days}j`
+    return new Date(date).toLocaleDateString('fr-FR')
   }
 </script>
 
@@ -66,7 +66,7 @@
               @click="emit('delete', comment.id)"
             >
               <Trash2 class="size-4" />
-              Delete
+              Supprimer
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

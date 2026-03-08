@@ -7,6 +7,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
+use App\Models\User;
 use Dedoc\Scramble\Attributes\Endpoint;
 use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\Request;
@@ -90,6 +91,28 @@ class PostController extends Controller
     public function indexUser(Request $request)
     {
         $posts = $request->user()->posts()
+            ->with('user')->withCount('likes')
+            ->orderBy('created_at', 'desc')
+            ->paginate();
+
+        return PostResource::collection($posts);
+    }
+
+    #[Endpoint(title: 'Posts by User')]
+    public function indexByUser(User $user)
+    {
+        $posts = $user->posts()
+            ->with('user')->withCount('likes')
+            ->orderBy('created_at', 'desc')
+            ->paginate();
+
+        return PostResource::collection($posts);
+    }
+
+    #[Endpoint(title: 'Liked Posts by User')]
+    public function indexLikedByUser(User $user)
+    {
+        $posts = Post::whereHas('likes', fn($q) => $q->where('user_id', $user->id))
             ->with('user')->withCount('likes')
             ->orderBy('created_at', 'desc')
             ->paginate();

@@ -1,5 +1,4 @@
 <script setup>
-  import { cn } from '@/lib/utils'
   import { ref } from 'vue'
   import { useAuth } from '@/composables/useAuth.js'
   import { Button } from '@/components/ui/button'
@@ -28,46 +27,38 @@
   function handleSubmit() {
     login(email.value, password.value)
   }
-
-  const props = defineProps({
-    class: {
-      type: [Boolean, null, String, Object, Array],
-      required: false,
-      skipCheck: true,
-    },
-  })
 </script>
 
 <template>
-  <div :class="cn('flex flex-col gap-6', props.class)">
+  <div class="flex flex-col gap-6">
     <Card>
       <CardHeader>
-        <CardTitle>Login to your account</CardTitle>
+        <CardTitle>Connexion</CardTitle>
         <CardDescription>
-          Enter your email below to login to your account
+          Entrez votre email pour accéder à votre compte
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form @submit.prevent="handleSubmit">
           <FieldGroup>
             <Field>
-              <FieldLabel for="email"> Email </FieldLabel>
+              <FieldLabel for="email">Email</FieldLabel>
               <Input
                 v-model="email"
                 id="email"
                 type="email"
-                placeholder="m@example.com"
+                placeholder="m@exemple.com"
                 required
               />
             </Field>
             <Field>
               <div class="flex items-center">
-                <FieldLabel for="password"> Password </FieldLabel>
+                <FieldLabel for="password">Mot de passe</FieldLabel>
                 <a
                   href="#"
                   class="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                 >
-                  Forgot your password?
+                  Mot de passe oublié ?
                 </a>
               </div>
               <Input
@@ -78,13 +69,13 @@
               />
             </Field>
             <Field>
-              <p v-if="error">{{ error }}</p>
+              <p v-if="error" class="text-sm text-destructive">{{ error }}</p>
               <Button type="submit" :disabled="loading">
                 {{ loading ? 'Connexion...' : 'Se connecter' }}
               </Button>
               <FieldDescription class="text-center">
-                Don't have an account?
-                <a @click="router.push('/register')"> Sign up </a>
+                Pas encore de compte ?
+                <a @click="router.push('/register')" class="cursor-pointer underline-offset-4 hover:underline">S'inscrire</a>
               </FieldDescription>
             </Field>
           </FieldGroup>

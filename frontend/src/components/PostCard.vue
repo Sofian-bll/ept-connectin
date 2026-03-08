@@ -33,14 +33,14 @@
 
   function timeAgo(date) {
     const seconds = Math.floor((new Date() - new Date(date)) / 1000)
-    if (seconds < 60) return 'now'
+    if (seconds < 60) return 'à l\'instant'
     const minutes = Math.floor(seconds / 60)
-    if (minutes < 60) return `${minutes}m`
+    if (minutes < 60) return `il y a ${minutes}m`
     const hours = Math.floor(minutes / 60)
-    if (hours < 24) return `${hours}h`
+    if (hours < 24) return `il y a ${hours}h`
     const days = Math.floor(hours / 24)
-    if (days < 7) return `${days}d`
-    return new Date(date).toLocaleDateString('en-US', {
+    if (days < 7) return `il y a ${days}j`
+    return new Date(date).toLocaleDateString('fr-FR', {
       month: 'short',
       day: 'numeric',
     })
@@ -95,14 +95,14 @@
               <DropdownMenuContent align="end">
                 <DropdownMenuItem @click="emit('edit', post)">
                   <Pencil class="size-4" />
-                  Edit
+                  Modifier
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   class="text-destructive"
                   @click="emit('delete', post.id)"
                 >
                   <Trash2 class="size-4" />
-                  Delete
+                  Supprimer
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -154,7 +154,7 @@
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                {{ post.is_liked ? 'Unlike' : 'Like' }}
+                {{ post.is_liked ? 'Ne plus aimer' : 'Aimer' }}
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>

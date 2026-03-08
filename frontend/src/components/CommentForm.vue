@@ -31,7 +31,7 @@
     <div class="flex-1 flex gap-2">
       <Textarea
         v-model="content"
-        placeholder="Write a comment..."
+        placeholder="Écrire un commentaire..."
         rows="1"
         class="min-h-9 resize-none"
         required

@@ -58,7 +58,7 @@
     </div>
 
     <div v-else-if="posts.length === 0" class="text-center py-12 text-muted-foreground">
-      No posts yet. Be the first to post!
+      Aucun post pour l'instant. Soyez le premier à publier !
     </div>
 
     <div v-else>

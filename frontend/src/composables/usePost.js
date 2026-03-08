@@ -37,7 +37,7 @@ export function usePosts() {
       const body = new FormData()
       body.append('title', title)
       body.append('content', content)
-      if (file) body.append('media_url', file)
+      if (file) body.append('media', file)
       const response = await api.post('/posts', body)
       posts.value.unshift(response.data.data)
     } catch (e) {

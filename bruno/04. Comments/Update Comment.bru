@@ -1,0 +1,21 @@
+meta {
+  name: Update Comment
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{baseUrl}}/posts/1/comments/1
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "content": "Updated comment content."
+  }
+}

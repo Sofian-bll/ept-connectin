@@ -1,0 +1,28 @@
+meta {
+  name: Update Profile
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/user
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "first_name": "Sofian",
+    "last_name": "Belloul",
+    "name": "Sofian Belloul",
+    "email": "sofian@epitech.eu",
+    "birthday": "2000-01-15",
+    "birthplace_city": "Paris",
+    "birthplace_country": "France",
+    "bio": "Etudiant a Epitech Web Academy"
+  }
+}

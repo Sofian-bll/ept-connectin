@@ -1,0 +1,15 @@
+meta {
+  name: List Posts
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/posts
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}

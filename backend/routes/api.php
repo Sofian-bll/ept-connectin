@@ -23,6 +23,8 @@ Route::prefix('v1')->group(function () {
 
         // User Ressources
         Route::get('user/posts', [ PostController::class, 'indexUser' ])->name('user.posts');
+        Route::get('users/{user}/posts', [ PostController::class, 'indexByUser' ])->name('users.posts');
+        Route::get('users/{user}/liked-posts', [ PostController::class, 'indexLikedByUser' ])->name('users.liked-posts');
 
         // Posts
         Route::apiResource('posts', PostController::class);

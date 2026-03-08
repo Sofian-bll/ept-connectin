@@ -1,5 +1,5 @@
 <script setup>
-  import { onMounted, computed, ref, watch } from 'vue'
+  import { onMounted, computed, ref } from 'vue'
   import { useRoute } from 'vue-router'
   import { useUser } from '@/composables/useUser.js'
   import { usePosts } from '@/composables/usePost.js'
@@ -13,27 +13,45 @@
   const route = useRoute()
 
   const { user, loading, fetchUser, fetchMe, me } = useUser()
-  const { myPosts, loading: postsLoading, fetchMyPosts, toggleLike, deletePost, updatePost } = usePosts()
+  const {
+    myPosts,
+    userPosts,
+    likedPosts,
+    loading: postsLoading,
+    fetchMyPosts,
+    fetchUserPosts,
+    fetchLikedPosts,
+    toggleLike,
+    deletePost,
+    updatePost,
+  } = usePosts()
 
   const activeTab = ref('posts')
   const editOpen = ref(false)
   const editingPost = ref(null)
+  const likedLoaded = ref(false)
 
   const isOwnProfile = computed(() => me.value && String(me.value.id) === String(route.params.id))
   const profileData = computed(() => isOwnProfile.value ? me.value : user.value)
+  const displayedPosts = computed(() => isOwnProfile.value ? myPosts.value : userPosts.value)
 
   onMounted(async () => {
     await fetchMe()
-    if (!isOwnProfile.value) {
+    if (isOwnProfile.value) {
+      fetchMyPosts()
+    } else {
       fetchUser(route.params.id)
+      fetchUserPosts(route.params.id)
     }
   })
 
-  watch(isOwnProfile, (val) => {
-    if (val && myPosts.value.length === 0) {
-      fetchMyPosts()
+  async function handleTabChange(tab) {
+    activeTab.value = tab
+    if (tab === 'likes' && !likedLoaded.value) {
+      await fetchLikedPosts(route.params.id)
+      likedLoaded.value = true
     }
-  }, { immediate: true })
+  }
 
   function handleLike(postId) {
     toggleLike(postId)
@@ -44,14 +62,13 @@
     editOpen.value = true
   }
 
-  async function handleDeleteMyPost(id) {
+  async function handleDeletePost(id) {
     await deletePost(id)
-    myPosts.value = myPosts.value.filter(p => p.id !== id)
   }
 
   async function handleSavePost(id, title, content) {
     await updatePost(id, title, content)
-    myPosts.value = myPosts.value.map(p => p.id === id ? { ...p, title, content } : p)
+    editOpen.value = false
   }
 </script>
 
@@ -87,66 +104,82 @@
               </div>
               <div v-if="profileData.created_at" class="flex items-center gap-1">
                 <Calendar class="size-3" />
-                Joined {{ new Date(profileData.created_at).toLocaleDateString() }}
+                Membre depuis {{ new Date(profileData.created_at).toLocaleDateString('fr-FR') }}
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <Tabs v-model="activeTab">
+      <Tabs :model-value="activeTab" @update:model-value="handleTabChange">
         <TabsList class="w-full rounded-none border-b bg-background h-auto p-0">
           <TabsTrigger
             value="posts"
             class="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:shadow-none py-3"
           >
-            Posts
+            Publications
           </TabsTrigger>
           <TabsTrigger
             value="likes"
             class="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:shadow-none py-3"
           >
-            Likes
+            J'aime
           </TabsTrigger>
         </TabsList>
 
         <TabsContent value="posts" class="mt-0">
-          <template v-if="isOwnProfile">
-            <div v-if="postsLoading" class="divide-y">
-              <div v-for="i in 3" :key="i" class="px-4 py-3 space-y-3">
-                <div class="flex gap-3">
-                  <Skeleton class="size-10 rounded-full shrink-0" />
-                  <div class="flex-1 space-y-2">
-                    <Skeleton class="h-4 w-32" />
-                    <Skeleton class="h-4 w-full" />
-                    <Skeleton class="h-4 w-3/4" />
-                  </div>
+          <div v-if="postsLoading" class="divide-y">
+            <div v-for="i in 3" :key="i" class="px-4 py-3 space-y-3">
+              <div class="flex gap-3">
+                <Skeleton class="size-10 rounded-full shrink-0" />
+                <div class="flex-1 space-y-2">
+                  <Skeleton class="h-4 w-32" />
+                  <Skeleton class="h-4 w-full" />
+                  <Skeleton class="h-4 w-3/4" />
                 </div>
               </div>
             </div>
-            <div v-else-if="myPosts.length === 0" class="text-center py-12 text-muted-foreground text-sm">
-              Vous n'avez pas encore publié de post.
-            </div>
-            <div v-else>
-              <PostCard
-                v-for="post in myPosts"
-                :key="post.id"
-                :post="post"
-                :current-user-id="me?.id"
-                @like="handleLike"
-                @delete="handleDeleteMyPost"
-                @edit="handleEdit"
-              />
-            </div>
-          </template>
-          <div v-else class="text-center py-12 text-muted-foreground text-sm">
-            Les posts de cet utilisateur ne sont pas disponibles.
+          </div>
+          <div v-else-if="displayedPosts.length === 0" class="text-center py-12 text-muted-foreground text-sm">
+            Aucune publication pour l'instant.
+          </div>
+          <div v-else>
+            <PostCard
+              v-for="post in displayedPosts"
+              :key="post.id"
+              :post="post"
+              :current-user-id="me?.id"
+              @like="handleLike"
+              @delete="handleDeletePost"
+              @edit="isOwnProfile ? handleEdit(post) : undefined"
+            />
           </div>
         </TabsContent>
 
         <TabsContent value="likes" class="mt-0">
-          <div class="text-center py-12 text-muted-foreground text-sm">
-            Les posts likés ne sont pas encore disponibles.
+          <div v-if="postsLoading" class="divide-y">
+            <div v-for="i in 3" :key="i" class="px-4 py-3 space-y-3">
+              <div class="flex gap-3">
+                <Skeleton class="size-10 rounded-full shrink-0" />
+                <div class="flex-1 space-y-2">
+                  <Skeleton class="h-4 w-32" />
+                  <Skeleton class="h-4 w-full" />
+                  <Skeleton class="h-4 w-3/4" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div v-else-if="likedPosts.length === 0" class="text-center py-12 text-muted-foreground text-sm">
+            Aucune publication aimée pour l'instant.
+          </div>
+          <div v-else>
+            <PostCard
+              v-for="post in likedPosts"
+              :key="post.id"
+              :post="post"
+              :current-user-id="me?.id"
+              @like="handleLike"
+            />
           </div>
         </TabsContent>
       </Tabs>

@@ -60,4 +60,4 @@ dev:
 
 # Build + run frontend container (production)
 frontend:
-	cd backend && docker compose up -d --build frontend
+	cd backend && WWWUSER=$(shell id -u) WWWGROUP=$(shell id -g) docker compose up -d --build frontend

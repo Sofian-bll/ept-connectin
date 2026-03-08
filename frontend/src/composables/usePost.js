@@ -5,6 +5,8 @@ export function usePosts() {
   const posts = ref([])
   const post = ref(null)
   const myPosts = ref([])
+  const userPosts = ref([])
+  const likedPosts = ref([])
   const loading = ref(false)
   const error = ref(null)
 
@@ -32,6 +34,42 @@ export function usePosts() {
     }
   }
 
+  async function fetchMyPosts() {
+    loading.value = true
+    try {
+      const response = await api.get('/user/posts')
+      myPosts.value = response.data.data
+    } catch (e) {
+      error.value = e.response?.data?.message ?? e.message
+    } finally {
+      loading.value = false
+    }
+  }
+
+  async function fetchUserPosts(userId) {
+    loading.value = true
+    try {
+      const response = await api.get(`/users/${userId}/posts`)
+      userPosts.value = response.data.data
+    } catch (e) {
+      error.value = e.response?.data?.message ?? e.message
+    } finally {
+      loading.value = false
+    }
+  }
+
+  async function fetchLikedPosts(userId) {
+    loading.value = true
+    try {
+      const response = await api.get(`/users/${userId}/liked-posts`)
+      likedPosts.value = response.data.data
+    } catch (e) {
+      error.value = e.response?.data?.message ?? e.message
+    } finally {
+      loading.value = false
+    }
+  }
+
   async function createPost(title, content, file = null) {
     try {
       const body = new FormData()
@@ -48,11 +86,15 @@ export function usePosts() {
   async function updatePost(id, title, content) {
     try {
       const response = await api.put(`/posts/${id}`, { title, content })
-      const index = posts.value.findIndex(p => p.id === id)
-      if (index !== -1) {
-        posts.value[index] = response.data.data
+      const updated = response.data.data
+      const replaceIn = (list) => {
+        const index = list.findIndex(p => p.id === id)
+        if (index !== -1) list[index] = updated
       }
-      post.value = response.data.data
+      replaceIn(posts.value)
+      replaceIn(myPosts.value)
+      replaceIn(userPosts.value)
+      if (post.value?.id === id) post.value = updated
     } catch (e) {
       error.value = e.response?.data?.message ?? e.message
     }
@@ -61,33 +103,30 @@ export function usePosts() {
   async function deletePost(id) {
     try {
       await api.delete(`/posts/${id}`)
-      posts.value = posts.value.filter(p => p.id !== id)
+      const removeFrom = (list) => list.filter(p => p.id !== id)
+      posts.value = removeFrom(posts.value)
+      myPosts.value = removeFrom(myPosts.value)
+      userPosts.value = removeFrom(userPosts.value)
     } catch (e) {
       error.value = e.response?.data?.message ?? e.message
-    }
-  }
-
-  async function fetchMyPosts() {
-    loading.value = true
-    try {
-      const response = await api.get('/user/posts')
-      myPosts.value = response.data.data
-    } catch (e) {
-      error.value = e.response?.data?.message ?? e.message
-    } finally {
-      loading.value = false
     }
   }
 
   async function toggleLike(postId) {
     try {
       const response = await api.post(`/posts/${postId}/like`)
-      const index = posts.value.findIndex(p => p.id === postId)
-      if (index !== -1) {
-        posts.value[index].is_liked = response.data.liked
-        posts.value[index].likes_count = response.data.likes_count
+      const update = (list) => {
+        const index = list.findIndex(p => p.id === postId)
+        if (index !== -1) {
+          list[index].is_liked = response.data.liked
+          list[index].likes_count = response.data.likes_count
+        }
       }
-      if (post.value && post.value.id === postId) {
+      update(posts.value)
+      update(myPosts.value)
+      update(userPosts.value)
+      update(likedPosts.value)
+      if (post.value?.id === postId) {
         post.value.is_liked = response.data.liked
         post.value.likes_count = response.data.likes_count
       }
@@ -100,11 +139,15 @@ export function usePosts() {
     posts,
     post,
     myPosts,
+    userPosts,
+    likedPosts,
     loading,
     error,
     fetchPosts,
     fetchPost,
     fetchMyPosts,
+    fetchUserPosts,
+    fetchLikedPosts,
     createPost,
     updatePost,
     deletePost,

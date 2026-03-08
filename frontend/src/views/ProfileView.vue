@@ -45,6 +45,9 @@
   const password = ref('')
   const password_confirmation = ref('')
   const passwordSuccess = ref(false)
+  const profileError = ref(null)
+  const passwordError = ref(null)
+  const profileSaved = ref(false)
 
   const deleteOpen = ref(false)
   const deleteStrategy = ref('anonymize')
@@ -71,6 +74,9 @@
   }
 
   async function handleUpdateProfile() {
+    profileError.value = null
+    profileSaved.value = false
+    error.value = null
     await updateProfile(
       {
         first_name: first_name.value,
@@ -84,18 +90,27 @@
       },
       avatarFile.value
     )
-    avatarFile.value = null
-    if (avatarInput.value) avatarInput.value.value = ''
+    if (error.value) {
+      profileError.value = error.value
+    } else {
+      avatarFile.value = null
+      if (avatarInput.value) avatarInput.value.value = ''
+      profileSaved.value = true
+    }
   }
 
   async function handleUpdatePassword() {
     passwordSuccess.value = false
+    passwordError.value = null
+    error.value = null
     await updatePassword(
       current_password.value,
       password.value,
       password_confirmation.value
     )
-    if (!error.value) {
+    if (error.value) {
+      passwordError.value = error.value
+    } else {
       current_password.value = ''
       password.value = ''
       password_confirmation.value = ''
@@ -146,18 +161,18 @@
 
       <Card>
         <CardHeader>
-          <CardTitle class="text-base">Edit Profile</CardTitle>
+          <CardTitle class="text-base">Modifier le profil</CardTitle>
         </CardHeader>
         <CardContent>
           <form @submit.prevent="handleUpdateProfile">
             <FieldGroup>
               <div class="grid grid-cols-2 gap-4">
                 <Field>
-                  <FieldLabel>First Name</FieldLabel>
+                  <FieldLabel>Prénom</FieldLabel>
                   <Input v-model="first_name" required />
                 </Field>
                 <Field>
-                  <FieldLabel>Last Name</FieldLabel>
+                  <FieldLabel>Nom</FieldLabel>
                   <Input v-model="last_name" required />
                 </Field>
               </div>
@@ -167,26 +182,27 @@
               </Field>
               <Field>
                 <FieldLabel>Bio</FieldLabel>
-                <Textarea v-model="bio" rows="3" placeholder="Tell us about yourself..." />
+                <Textarea v-model="bio" rows="3" placeholder="Parlez-nous de vous..." />
               </Field>
               <div class="grid grid-cols-3 gap-4">
                 <Field>
-                  <FieldLabel>Birthday</FieldLabel>
+                  <FieldLabel>Date de naissance</FieldLabel>
                   <Input v-model="birthday" type="date" />
                 </Field>
                 <Field>
-                  <FieldLabel>City</FieldLabel>
+                  <FieldLabel>Ville</FieldLabel>
                   <Input v-model="birthplace_city" placeholder="Paris" />
                 </Field>
                 <Field>
-                  <FieldLabel>Country</FieldLabel>
+                  <FieldLabel>Pays</FieldLabel>
                   <Input v-model="birthplace_country" placeholder="France" />
                 </Field>
               </div>
-              <p v-if="error" class="text-sm text-destructive">{{ error }}</p>
+              <p v-if="profileSaved" class="text-sm text-green-600">Profil mis à jour.</p>
+              <p v-if="profileError" class="text-sm text-destructive">{{ profileError }}</p>
               <div class="flex justify-end">
                 <Button type="submit" :disabled="loading">
-                  {{ loading ? 'Saving...' : 'Save changes' }}
+                  {{ loading ? 'Enregistrement...' : 'Enregistrer' }}
                 </Button>
               </div>
             </FieldGroup>
@@ -196,27 +212,28 @@
 
       <Card>
         <CardHeader>
-          <CardTitle class="text-base">Change Password</CardTitle>
+          <CardTitle class="text-base">Changer le mot de passe</CardTitle>
         </CardHeader>
         <CardContent>
           <form @submit.prevent="handleUpdatePassword">
             <FieldGroup>
               <Field>
-                <FieldLabel>Current Password</FieldLabel>
+                <FieldLabel>Mot de passe actuel</FieldLabel>
                 <Input v-model="current_password" type="password" required />
               </Field>
               <Field>
-                <FieldLabel>New Password</FieldLabel>
+                <FieldLabel>Nouveau mot de passe</FieldLabel>
                 <Input v-model="password" type="password" required />
               </Field>
               <Field>
-                <FieldLabel>Confirm New Password</FieldLabel>
+                <FieldLabel>Confirmer le nouveau mot de passe</FieldLabel>
                 <Input v-model="password_confirmation" type="password" required />
               </Field>
-              <p v-if="passwordSuccess" class="text-sm text-green-600">Password updated.</p>
+              <p v-if="passwordSuccess" class="text-sm text-green-600">Mot de passe mis à jour.</p>
+              <p v-if="passwordError" class="text-sm text-destructive">{{ passwordError }}</p>
               <div class="flex justify-end">
                 <Button type="submit" :disabled="loading">
-                  {{ loading ? 'Updating...' : 'Change password' }}
+                  {{ loading ? 'Mise à jour...' : 'Changer le mot de passe' }}
                 </Button>
               </div>
             </FieldGroup>
@@ -226,46 +243,46 @@
 
       <Card class="border-destructive">
         <CardHeader>
-          <CardTitle class="text-base text-destructive">Danger Zone</CardTitle>
+          <CardTitle class="text-base text-destructive">Zone de danger</CardTitle>
           <CardDescription>
-            Once you delete your account, there is no going back.
+            La suppression de votre compte est irréversible.
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Dialog v-model:open="deleteOpen">
             <DialogTrigger as-child>
-              <Button variant="destructive">Delete my account</Button>
+              <Button variant="destructive">Supprimer mon compte</Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Delete account</DialogTitle>
+                <DialogTitle>Supprimer le compte</DialogTitle>
                 <DialogDescription>
-                  This action cannot be undone. Choose what happens to your content.
+                  Cette action est irréversible. Choisissez ce qui arrive à votre contenu.
                 </DialogDescription>
               </DialogHeader>
               <div class="space-y-3">
                 <label class="flex items-center gap-3 cursor-pointer">
                   <input type="radio" v-model="deleteStrategy" value="anonymize" />
                   <div>
-                    <p class="text-sm font-medium">Anonymize</p>
+                    <p class="text-sm font-medium">Anonymiser</p>
                     <p class="text-xs text-muted-foreground">
-                      Your posts stay but your name becomes "Deleted User"
+                      Vos posts restent mais votre nom devient "Utilisateur supprimé"
                     </p>
                   </div>
                 </label>
                 <label class="flex items-center gap-3 cursor-pointer">
                   <input type="radio" v-model="deleteStrategy" value="delete" />
                   <div>
-                    <p class="text-sm font-medium">Delete everything</p>
+                    <p class="text-sm font-medium">Tout supprimer</p>
                     <p class="text-xs text-muted-foreground">
-                      All your posts, comments and likes will be permanently deleted
+                      Tous vos posts, commentaires et likes seront définitivement supprimés
                     </p>
                   </div>
                 </label>
               </div>
               <DialogFooter>
-                <Button variant="outline" @click="deleteOpen = false">Cancel</Button>
-                <Button variant="destructive" @click="handleDelete">Confirm deletion</Button>
+                <Button variant="outline" @click="deleteOpen = false">Annuler</Button>
+                <Button variant="destructive" @click="handleDelete">Confirmer la suppression</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>

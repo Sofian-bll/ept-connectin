@@ -68,7 +68,7 @@
       <Button variant="ghost" size="icon-sm" class="rounded-full" @click="router.back()">
         <ArrowLeft class="size-5" />
       </Button>
-      <h1 class="text-lg font-bold">Post</h1>
+      <h1 class="text-lg font-bold">Publication</h1>
     </div>
 
     <div v-if="postLoading" class="px-4 py-3 space-y-3">
@@ -101,7 +101,7 @@
       </div>
 
       <div v-else-if="comments.length === 0" class="text-center py-8 text-sm text-muted-foreground">
-        No comments yet.
+        Aucun commentaire pour l'instant.
       </div>
 
       <div v-else class="divide-y">

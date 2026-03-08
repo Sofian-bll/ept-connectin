@@ -43,77 +43,72 @@
 <template>
   <Card>
     <CardHeader>
-      <CardTitle>Create an account</CardTitle>
+      <CardTitle>Créer un compte</CardTitle>
       <CardDescription>
-        Enter your information below to create your account
+        Renseignez vos informations pour créer votre compte
       </CardDescription>
     </CardHeader>
     <CardContent>
       <form @submit.prevent="handleSubmit">
         <FieldGroup>
           <Field>
-            <FieldLabel for="first_name"> First Name </FieldLabel>
+            <FieldLabel for="first_name">Prénom</FieldLabel>
             <Input
               v-model="first_name"
               id="first_name"
               type="text"
-              placeholder="John"
+              placeholder="Jean"
               required
             />
           </Field>
           <Field>
-            <FieldLabel for="last_name"> Last Name </FieldLabel>
+            <FieldLabel for="last_name">Nom</FieldLabel>
             <Input
               v-model="last_name"
               id="last_name"
               type="text"
-              placeholder="John Doe"
+              placeholder="Dupont"
               required
             />
           </Field>
           <Field>
-            <FieldLabel for="email"> Email </FieldLabel>
+            <FieldLabel for="email">Email</FieldLabel>
             <Input
               v-model="email"
               id="email"
               type="email"
-              placeholder="m@example.com"
+              placeholder="m@exemple.com"
               required
             />
             <FieldDescription>
-              We'll use this to contact you. We will not share your email with
-              anyone else.
+              Nous utiliserons cet email pour vous contacter. Votre email ne sera pas partagé.
             </FieldDescription>
           </Field>
           <Field>
-            <FieldLabel for="password"> Password </FieldLabel>
+            <FieldLabel for="password">Mot de passe</FieldLabel>
             <Input v-model="password" id="password" type="password" required />
-            <FieldDescription
-              >Must be at least 8 characters long.</FieldDescription
-            >
+            <FieldDescription>Au moins 8 caractères.</FieldDescription>
           </Field>
           <Field>
-            <FieldLabel for="confirm-password"> Confirm Password </FieldLabel>
+            <FieldLabel for="confirm-password">Confirmer le mot de passe</FieldLabel>
             <Input
               v-model="password_confirmation"
               id="confirm-password"
               type="password"
               required
             />
-            <FieldDescription>Please confirm your password.</FieldDescription>
+            <FieldDescription>Veuillez confirmer votre mot de passe.</FieldDescription>
           </Field>
-          <FieldGroup>
-            <Field>
-              <p v-if="error">{{ error }}</p>
-              <Button type="submit" :disabled="loading">
-                {{ loading ? 'Création...' : 'Créer un compte' }}
-              </Button>
-              <FieldDescription class="px-6 text-center">
-                Already have an account?
-                <a @click="router.push('/login')">Sign in</a>
-              </FieldDescription>
-            </Field>
-          </FieldGroup>
+          <Field>
+            <p v-if="error" class="text-sm text-destructive">{{ error }}</p>
+            <Button type="submit" :disabled="loading">
+              {{ loading ? 'Création...' : 'Créer un compte' }}
+            </Button>
+            <FieldDescription class="px-6 text-center">
+              Déjà un compte ?
+              <a @click="router.push('/login')" class="cursor-pointer underline-offset-4 hover:underline">Se connecter</a>
+            </FieldDescription>
+          </Field>
         </FieldGroup>
       </form>
     </CardContent>

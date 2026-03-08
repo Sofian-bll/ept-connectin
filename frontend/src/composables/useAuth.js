@@ -53,12 +53,12 @@ export function useAuth() {
   async function logout() {
     loading.value = true
     try {
-      const response = await api.post('/logout')
-      localStorage.removeItem('token')
-      await router.push('/login')
+      await api.post('/logout')
     } catch (e) {
       error.value = e.response?.data?.message ?? e.message
     } finally {
+      localStorage.removeItem('token')
+      await router.push('/login')
       loading.value = false
     }
   }

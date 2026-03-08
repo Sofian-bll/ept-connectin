@@ -79,5 +79,16 @@ export function usePosts() {
     }
   }
 
-  return { posts, post, loading, error, fetchPosts, fetchPost, createPost, updatePost, deletePost, toggleLike }
+  return {
+    posts,
+    post,
+    loading,
+    error,
+    fetchPosts,
+    fetchPost,
+    createPost,
+    updatePost,
+    deletePost,
+    toggleLike,
+  }
 }

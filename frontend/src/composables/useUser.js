@@ -33,10 +33,21 @@ export function useUser() {
     }
   }
 
-  async function updateProfile(data) {
+  async function updateProfile(data, avatarFile = null) {
     loading.value = true
     try {
-      const response = await api.put('/user', data)
+      let response
+      if (avatarFile) {
+        const formData = new FormData()
+        Object.entries(data).forEach(([key, val]) => {
+          if (val !== null && val !== undefined) formData.append(key, val)
+        })
+        formData.append('avatar', avatarFile)
+        formData.append('_method', 'PUT')
+        response = await api.post('/user', formData)
+      } else {
+        response = await api.put('/user', data)
+      }
       me.value = response.data.data
     } catch (e) {
       error.value = e.response?.data?.message ?? e.message

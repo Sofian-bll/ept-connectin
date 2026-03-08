@@ -14,7 +14,13 @@
     TooltipProvider,
     TooltipTrigger,
   } from '@/components/ui/tooltip'
-  import { Heart, MessageCircle, MoreHorizontal, Pencil, Trash2 } from 'lucide-vue-next'
+  import {
+    Heart,
+    MessageCircle,
+    MoreHorizontal,
+    Pencil,
+    Trash2,
+  } from 'lucide-vue-next'
 
   const router = useRouter()
 
@@ -34,7 +40,10 @@
     if (hours < 24) return `${hours}h`
     const days = Math.floor(hours / 24)
     if (days < 7) return `${days}d`
-    return new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+    return new Date(date).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+    })
   }
 </script>
 
@@ -47,7 +56,8 @@
       >
         <AvatarImage v-if="post.author?.avatar" :src="post.author.avatar" />
         <AvatarFallback>
-          {{ post.author?.first_name?.charAt(0) }}{{ post.author?.last_name?.charAt(0) }}
+          {{ post.author?.first_name?.charAt(0)
+          }}{{ post.author?.last_name?.charAt(0) }}
         </AvatarFallback>
       </Avatar>
 
@@ -74,7 +84,11 @@
           <div class="ml-auto">
             <DropdownMenu v-if="currentUserId === post.author?.id">
               <DropdownMenuTrigger as-child>
-                <Button variant="ghost" size="icon-sm" class="size-8 rounded-full">
+                <Button
+                  variant="ghost"
+                  size="icon-sm"
+                  class="size-8 rounded-full"
+                >
                   <MoreHorizontal class="size-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -95,10 +109,7 @@
           </div>
         </div>
 
-        <div
-          class="cursor-pointer"
-          @click="router.push(`/posts/${post.id}`)"
-        >
+        <div class="cursor-pointer" @click="router.push(`/posts/${post.id}`)">
           <h3 v-if="post.title" class="font-bold mt-0.5">
             {{ post.title }}
           </h3>
@@ -106,6 +117,7 @@
           <img
             v-if="post.media_url"
             :src="post.media_url"
+            :alt="post.title"
             class="rounded-2xl w-full object-cover max-h-96 mt-3 border"
           />
         </div>
@@ -127,7 +139,11 @@
                   variant="ghost"
                   size="sm"
                   class="gap-1.5 rounded-full"
-                  :class="post.is_liked ? 'text-red-500 hover:text-red-600' : 'text-muted-foreground hover:text-red-500'"
+                  :class="
+                    post.is_liked
+                      ? 'text-red-500 hover:text-red-600'
+                      : 'text-muted-foreground hover:text-red-500'
+                  "
                   @click="emit('like', post.id)"
                 >
                   <Heart

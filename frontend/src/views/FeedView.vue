@@ -18,8 +18,8 @@
     fetchMe()
   })
 
-  function handleCreate(title, content) {
-    createPost(title, content)
+  function handleCreate(title, content, file) {
+    createPost(title, content, file)
   }
 
   function handleEdit(post) {

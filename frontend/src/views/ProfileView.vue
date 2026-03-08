@@ -1,5 +1,5 @@
 <script setup>
-  import { onMounted, ref } from 'vue'
+  import { onMounted, ref, computed } from 'vue'
   import { useUser } from '@/composables/useUser.js'
   import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
   import { Button } from '@/components/ui/button'
@@ -24,8 +24,15 @@
     DialogTrigger,
   } from '@/components/ui/dialog'
   import { Skeleton } from '@/components/ui/skeleton'
+  import { Camera } from 'lucide-vue-next'
 
   const { me, loading, error, fetchMe, updateProfile, updatePassword, deleteAccount } = useUser()
+
+  const avatarFile = ref(null)
+  const avatarPreview = ref(null)
+  const avatarInput = ref(null)
+
+  const avatarSrc = computed(() => avatarPreview.value ?? me.value?.avatar ?? null)
 
   const first_name = ref('')
   const last_name = ref('')
@@ -56,17 +63,30 @@
     }
   })
 
+  function handleAvatarChange(event) {
+    const file = event.target.files[0]
+    if (!file) return
+    avatarFile.value = file
+    if (avatarPreview.value) URL.revokeObjectURL(avatarPreview.value)
+    avatarPreview.value = URL.createObjectURL(file)
+  }
+
   async function handleUpdateProfile() {
-    await updateProfile({
-      first_name: first_name.value,
-      last_name: last_name.value,
-      name: `${first_name.value} ${last_name.value}`,
-      email: email.value,
-      bio: bio.value,
-      birthday: birthday.value,
-      birthplace_city: birthplace_city.value,
-      birthplace_country: birthplace_country.value,
-    })
+    await updateProfile(
+      {
+        first_name: first_name.value,
+        last_name: last_name.value,
+        name: `${first_name.value} ${last_name.value}`,
+        email: email.value,
+        bio: bio.value,
+        birthday: birthday.value,
+        birthplace_city: birthplace_city.value,
+        birthplace_country: birthplace_country.value,
+      },
+      avatarFile.value
+    )
+    avatarFile.value = null
+    if (avatarInput.value) avatarInput.value.value = ''
   }
 
   async function handleUpdatePassword() {
@@ -99,12 +119,24 @@
     <template v-else-if="me">
       <Card>
         <CardHeader class="flex-row items-center gap-4 space-y-0">
-          <Avatar class="size-16">
-            <AvatarImage v-if="me.avatar" :src="me.avatar" />
-            <AvatarFallback class="text-lg">
-              {{ me.first_name?.charAt(0) }}{{ me.last_name?.charAt(0) }}
-            </AvatarFallback>
-          </Avatar>
+          <label class="relative cursor-pointer group shrink-0">
+            <Avatar class="size-16">
+              <AvatarImage v-if="avatarSrc" :src="avatarSrc" />
+              <AvatarFallback class="text-lg">
+                {{ me.first_name?.charAt(0) }}{{ me.last_name?.charAt(0) }}
+              </AvatarFallback>
+            </Avatar>
+            <div class="absolute inset-0 rounded-full bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              <Camera class="size-5 text-white" />
+            </div>
+            <input
+              ref="avatarInput"
+              type="file"
+              accept="image/*"
+              class="hidden"
+              @change="handleAvatarChange"
+            />
+          </label>
           <div>
             <CardTitle>{{ me.name }}</CardTitle>
             <CardDescription>{{ me.email }}</CardDescription>

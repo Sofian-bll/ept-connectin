@@ -31,9 +31,13 @@ export function usePosts() {
     }
   }
 
-  async function createPost(title, content) {
+  async function createPost(title, content, file = null) {
     try {
-      const response = await api.post('/posts', { title, content })
+      const body = new FormData()
+      body.append('title', title)
+      body.append('content', content)
+      if (file) body.append('media_url', file)
+      const response = await api.post('/posts', body)
       posts.value.unshift(response.data.data)
     } catch (e) {
       error.value = e.response?.data?.message ?? e.message

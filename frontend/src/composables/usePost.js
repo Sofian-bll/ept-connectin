@@ -3,6 +3,7 @@ import api from '@/services/api.js'
 
 export function usePosts() {
   const posts = ref([])
+  const post = ref(null)
   const loading = ref(false)
   const error = ref(null)
 
@@ -18,10 +19,44 @@ export function usePosts() {
     }
   }
 
-  async function createPost(content) {
+  async function fetchPost(id) {
+    loading.value = true
     try {
-      const response = await api.post('/posts', { content })
+      const response = await api.get(`/posts/${id}`)
+      post.value = response.data.data
+    } catch (e) {
+      error.value = e.response?.data?.message ?? e.message
+    } finally {
+      loading.value = false
+    }
+  }
+
+  async function createPost(title, content) {
+    try {
+      const response = await api.post('/posts', { title, content })
       posts.value.unshift(response.data.data)
+    } catch (e) {
+      error.value = e.response?.data?.message ?? e.message
+    }
+  }
+
+  async function updatePost(id, title, content) {
+    try {
+      const response = await api.put(`/posts/${id}`, { title, content })
+      const index = posts.value.findIndex(p => p.id === id)
+      if (index !== -1) {
+        posts.value[index] = response.data.data
+      }
+      post.value = response.data.data
+    } catch (e) {
+      error.value = e.response?.data?.message ?? e.message
+    }
+  }
+
+  async function deletePost(id) {
+    try {
+      await api.delete(`/posts/${id}`)
+      posts.value = posts.value.filter(p => p.id !== id)
     } catch (e) {
       error.value = e.response?.data?.message ?? e.message
     }
@@ -32,12 +67,17 @@ export function usePosts() {
       const response = await api.post(`/posts/${postId}/like`)
       const index = posts.value.findIndex(p => p.id === postId)
       if (index !== -1) {
-        posts.value[index] = response.data.data
+        posts.value[index].is_liked = response.data.liked
+        posts.value[index].likes_count = response.data.likes_count
+      }
+      if (post.value && post.value.id === postId) {
+        post.value.is_liked = response.data.liked
+        post.value.likes_count = response.data.likes_count
       }
     } catch (e) {
       error.value = e.response?.data?.message ?? e.message
     }
   }
 
-  return { posts, loading, error, fetchPosts, createPost, toggleLike }
+  return { posts, post, loading, error, fetchPosts, fetchPost, createPost, updatePost, deletePost, toggleLike }
 }

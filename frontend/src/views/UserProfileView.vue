@@ -4,11 +4,6 @@
   import { useUser } from '@/composables/useUser.js'
   import { usePosts } from '@/composables/usePost.js'
   import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-  import {
-    Card,
-    CardHeader,
-    CardTitle,
-  } from '@/components/ui/card'
   import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
   import { Skeleton } from '@/components/ui/skeleton'
   import { MapPin, Calendar, Mail } from 'lucide-vue-next'

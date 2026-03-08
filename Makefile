@@ -1,4 +1,4 @@
-.PHONY: install up down build migrate fresh seed shell tinker routes test
+.PHONY: install up down build migrate fresh seed shell tinker routes test dev frontend
 
 # First-time project setup (after git clone)
 install:
@@ -8,10 +8,11 @@ install:
 	@echo "Setting up ConnectIN..."
 	cp backend/.env.example backend/.env
 	cd backend && composer install
+	cd frontend && npm install
 	cd backend && ./vendor/bin/sail up -d
 	cd backend && ./vendor/bin/sail artisan key:generate
 	cd backend && ./vendor/bin/sail artisan migrate
-	@echo "Done! Backend running on http://localhost"
+	@echo "Done! Backend: http://localhost | Frontend dev: make dev"
 
 # Start all containers in background
 up:
@@ -52,3 +53,11 @@ routes:
 # Run tests
 test:
 	cd backend && ./vendor/bin/sail artisan test
+
+# Frontend dev server (hot reload)
+dev:
+	cd frontend && npm run dev
+
+# Build + run frontend container (production)
+frontend:
+	cd backend && docker compose up -d --build frontend

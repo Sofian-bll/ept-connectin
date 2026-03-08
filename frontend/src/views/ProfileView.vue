@@ -13,7 +13,6 @@
   import { Field, FieldGroup, FieldLabel } from '@/components/ui/field'
   import { Input } from '@/components/ui/input'
   import { Textarea } from '@/components/ui/textarea'
-  import { Separator } from '@/components/ui/separator'
   import {
     Dialog,
     DialogContent,
@@ -246,11 +245,7 @@
               </DialogHeader>
               <div class="space-y-3">
                 <label class="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="radio"
-                    v-model="deleteStrategy"
-                    value="anonymize"
-                  />
+                  <input type="radio" v-model="deleteStrategy" value="anonymize" />
                   <div>
                     <p class="text-sm font-medium">Anonymize</p>
                     <p class="text-xs text-muted-foreground">
@@ -259,11 +254,7 @@
                   </div>
                 </label>
                 <label class="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="radio"
-                    v-model="deleteStrategy"
-                    value="delete"
-                  />
+                  <input type="radio" v-model="deleteStrategy" value="delete" />
                   <div>
                     <p class="text-sm font-medium">Delete everything</p>
                     <p class="text-xs text-muted-foreground">
@@ -274,9 +265,7 @@
               </div>
               <DialogFooter>
                 <Button variant="outline" @click="deleteOpen = false">Cancel</Button>
-                <Button variant="destructive" @click="handleDelete">
-                  Confirm deletion
-                </Button>
+                <Button variant="destructive" @click="handleDelete">Confirm deletion</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>

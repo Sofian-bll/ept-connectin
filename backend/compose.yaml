@@ -22,6 +22,16 @@ services:
             - sail
         depends_on:
             - mysql
+    frontend:
+        build:
+            context: ../frontend
+            dockerfile: Dockerfile
+        ports:
+            - '${FRONTEND_PORT:-5173}:80'
+        networks:
+            - sail
+        depends_on:
+            - laravel.test
     mysql:
         image: 'mysql:8.4'
         ports:

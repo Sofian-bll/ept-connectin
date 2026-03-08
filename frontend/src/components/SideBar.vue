@@ -9,9 +9,10 @@
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
+    DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from '@/components/ui/dropdown-menu'
-  import { Home, User, LogOut, MoreHorizontal } from 'lucide-vue-next'
+  import { Home, User, Settings, LogOut, MoreHorizontal } from 'lucide-vue-next'
 
   const { logout } = useAuth()
   const { me, fetchMe } = useUser()
@@ -43,8 +44,8 @@
       <Button
         variant="ghost"
         class="w-full justify-start gap-3 text-base h-12"
-        :class="route.path === '/profile' ? 'font-bold' : ''"
-        @click="router.push('/profile')"
+        :class="route.path === `/users/${me?.id}` ? 'font-bold' : ''"
+        @click="router.push(`/users/${me?.id}`)"
       >
         <User class="size-5" />
         Profile
@@ -71,7 +72,12 @@
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" side="top" class="w-56">
-          <DropdownMenuItem @click="logout()">
+          <DropdownMenuItem @click="router.push('/profile')">
+            <Settings class="size-4" />
+            Paramètres
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem class="text-destructive" @click="logout()">
             <LogOut class="size-4" />
             Log out
           </DropdownMenuItem>

@@ -24,7 +24,7 @@ class PostController extends Controller
     public function index()
     {
         return PostResource::collection(
-            Post::with('user')->withCount('likes')->orderBy('created_at', 'desc')->paginate(),
+            Post::with('user')->withCount(['likes', 'comments'])->orderBy('created_at', 'desc')->paginate(),
         );
     }
 
@@ -39,7 +39,7 @@ class PostController extends Controller
         }
 
         $post = $request->user()->posts()->create($data);
-        $post->load('user')->loadCount('likes');
+        $post->load('user')->loadCount(['likes', 'comments']);
 
         return new PostResource($post);
     }
@@ -47,7 +47,7 @@ class PostController extends Controller
     #[Endpoint(title: 'Get Post')]
     public function show(Post $post)
     {
-        $post->load('user')->loadCount('likes');
+        $post->load('user')->loadCount(['likes', 'comments']);
 
         return new PostResource($post);
     }
@@ -68,7 +68,7 @@ class PostController extends Controller
         }
 
         $post->update($data);
-        $post->load('user')->loadCount('likes');
+        $post->load('user')->loadCount(['likes', 'comments']);
 
         return new PostResource($post);
     }
@@ -91,7 +91,7 @@ class PostController extends Controller
     public function indexUser(Request $request)
     {
         $posts = $request->user()->posts()
-            ->with('user')->withCount('likes')
+            ->with('user')->withCount(['likes', 'comments'])
             ->orderBy('created_at', 'desc')
             ->paginate();
 
@@ -102,7 +102,7 @@ class PostController extends Controller
     public function indexByUser(User $user)
     {
         $posts = $user->posts()
-            ->with('user')->withCount('likes')
+            ->with('user')->withCount(['likes', 'comments'])
             ->orderBy('created_at', 'desc')
             ->paginate();
 
@@ -113,7 +113,7 @@ class PostController extends Controller
     public function indexLikedByUser(User $user)
     {
         $posts = Post::whereHas('likes', fn($q) => $q->where('user_id', $user->id))
-            ->with('user')->withCount('likes')
+            ->with('user')->withCount(['likes', 'comments'])
             ->orderBy('created_at', 'desc')
             ->paginate();
 

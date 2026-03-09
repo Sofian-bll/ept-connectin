@@ -21,8 +21,9 @@ class PostResource extends JsonResource
             'content'     => $this->content,
             'media_url'   => $this->media_url ? Storage::url($this->media_url) : null,
             'author' => new UserResource($this->whenLoaded('user')),
-            'likes_count' => $this->likes_count ?? 0,
-            'is_liked'    => $this->likes()->where('user_id', $request->user()?->id)->exists(),
+            'likes_count'    => $this->likes_count ?? 0,
+            'comments_count' => $this->comments_count ?? 0,
+            'is_liked'       => $this->likes()->where('user_id', $request->user()?->id)->exists(),
             'created_at'  => $this->created_at?->format('Y-m-d H:i:s'),
             'updated_at'  => $this->updated_at?->format('Y-m-d H:i:s'),
         ];

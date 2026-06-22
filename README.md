@@ -10,7 +10,7 @@
   <a href="https://github.com/Sofian-bll/ept-connectin/stargazers"><img src="https://img.shields.io/github/stars/Sofian-bll/ept-connectin?style=flat" alt="Stars"/></a>
 </p>
 
-<h1 id="readme-top">Connect'IN</h1>
+<h1 align="center" id="readme-top">Connect'IN</h1>
 
 <p align="center">
   Réseau social interne pour ESN — API REST Laravel + Vue.js

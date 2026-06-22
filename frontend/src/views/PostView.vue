@@ -18,7 +18,7 @@
   const postId = route.params.id
 
   const { post, loading: postLoading, fetchPost, updatePost, deletePost, toggleLike } = usePosts()
-  const { comments, loading: commentsLoading, fetchComments, createComment, deleteComment } = useComments(postId)
+  const { comments, loading: commentsLoading, fetchComments, createComment, updateComment, deleteComment } = useComments(postId)
   const { me, fetchMe } = useUser()
 
   const editOpen = ref(false)
@@ -52,6 +52,10 @@
     if (post.value) {
       post.value.comments_count = (post.value.comments_count || 0) + 1
     }
+  }
+
+  async function handleEditComment(commentId, content) {
+    await updateComment(commentId, content)
   }
 
   async function handleDeleteComment(commentId) {
@@ -109,6 +113,7 @@
           <CommentItem
             :comment="comment"
             :current-user-id="me?.id"
+            @edit="handleEditComment"
             @delete="handleDeleteComment"
           />
         </div>

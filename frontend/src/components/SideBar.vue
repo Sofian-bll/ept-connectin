@@ -38,7 +38,7 @@
         @click="router.push('/feed')"
       >
         <Home class="size-5" />
-        Home
+        Accueil
       </Button>
 
       <Button
@@ -48,7 +48,7 @@
         @click="router.push(`/users/${me?.id}`)"
       >
         <User class="size-5" />
-        Profile
+        Profil
       </Button>
     </div>
 
@@ -79,7 +79,7 @@
           <DropdownMenuSeparator />
           <DropdownMenuItem class="text-destructive" @click="logout()">
             <LogOut class="size-4" />
-            Log out
+              Se déconnecter
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

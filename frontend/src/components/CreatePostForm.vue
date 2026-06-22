@@ -55,13 +55,13 @@
         <div class="flex-1 space-y-2">
           <Input
             v-model="title"
-            placeholder="Title"
+            placeholder="Titre"
             class="border-0 px-0 text-base font-medium shadow-none focus-visible:ring-0"
             required
           />
           <Textarea
             v-model="content"
-            placeholder="What's happening?"
+            placeholder="Quoi de neuf ?"
             class="border-0 px-0 text-base shadow-none focus-visible:ring-0 resize-none min-h-[60px]"
             rows="2"
             required
@@ -100,7 +100,7 @@
           <ImagePlus class="size-4" />
         </Button>
         <Button type="submit" size="sm" class="rounded-full px-5">
-          Post
+          Publier
         </Button>
       </div>
     </form>

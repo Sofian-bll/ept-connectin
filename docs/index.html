@@ -4,19 +4,21 @@
 <meta charset="UTF-8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Connect'IN</title>
-<meta name="description" content="Réseau social interne pour ESN — API REST Laravel + Vue.js">
-<meta name="theme-color" content="#0a0f0f">
-<meta property="og:title" content="Connect'IN">
-<meta property="og:description" content="Réseau social interne pour ESN — API REST Laravel + Vue.js">
+<title>ConnectIn-Java</title>
+<meta name="description" content="Professional social network API — Spring Boot, JWT, Docker">
+<meta name="theme-color" content="#0a080d">
+<meta property="og:title" content="ConnectIn-Java">
+<meta property="og:description" content="Professional social network API — Spring Boot, JWT, Docker">
 <meta property="og:type" content="website">
-
+<meta property="og:image" content="assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Connect'IN">
-<meta name="twitter:description" content="Réseau social interne pour ESN — API REST Laravel + Vue.js">
-
+<meta name="twitter:title" content="ConnectIn-Java">
+<meta name="twitter:description" content="Professional social network API — Spring Boot, JWT, Docker">
+<meta name="twitter:image" content="assets/og-image.png">
 
 
 <script src="https://cdn.tailwindcss.com"></script>
@@ -65,34 +67,34 @@ tailwind.config = {
   --section-py: 6rem;
 
   /* Dark theme */
-  --bg: #0a0f0f;
-  --surface: #0c1a14;
-  --elevated: #122a1e;
-  --border: #1a3328;
-  --text: #f0fdfa;
-  --muted: rgba(240,253,250,0.55);
+  --bg: #0a080d;
+  --surface: #120f18;
+  --elevated: #191522;
+  --border: #2a2438;
+  --text: #faf0ff;
+  --muted: rgba(250,240,255,0.55);
 
   /* Accents */
-  --primary: #10b981;
-  --secondary: #34d399;
-  --accent: #059669;
+  --primary: #d946ef;
+  --secondary: #7c3aed;
+  --accent: #a855f7;
 
   --primary-dim: color-mix(in srgb, var(--primary) 20%, transparent);
   --primary-dimmer: color-mix(in srgb, var(--primary) 5%, transparent);
   --primary-glow: color-mix(in srgb, var(--primary) 40%, transparent);
 
   /* Typography */
-  --font-display: "Archivo Black", Impact, "Arial Narrow Bold", sans-serif;
-  --font-body: "DM Sans", system-ui, sans-serif;
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "SF Mono", Consolas, monospace;
 
   /* Light theme */
-  --light-bg: #f0fdfa;
+  --light-bg: #faf8ff;
   --light-surface: #ffffff;
-  --light-elevated: #ecfdf5;
-  --light-border: #d1fae5;
-  --light-text: #064e3b;
-  --light-muted: rgba(6,78,59,0.55);
+  --light-elevated: #f3effa;
+  --light-border: #e0d8f0;
+  --light-text: #1a1525;
+  --light-muted: rgba(26,21,37,0.55);
 
   /* Effects */
   --glass-blur: 16px;
@@ -180,8 +182,8 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
   opacity: var(--grid-opacity);
 }
 
-.radial-1 { background: radial-gradient(ellipse 80% 60% at 20% 0%, rgba(16,185,129,0.10) 0%, transparent 60%); opacity: 0.5; }
-.radial-2 { background: radial-gradient(ellipse 60% 50% at 85% 100%, rgba(52,211,153,0.06) 0%, transparent 60%); opacity: 0.5; }
+.radial-1 { background: radial-gradient(ellipse 80% 60% at 20% 0%, rgba(217,70,239,0.08) 0%, transparent 60%); opacity: 0.5; }
+.radial-2 { background: radial-gradient(ellipse 60% 50% at 85% 100%, rgba(124,58,237,0.05) 0%, transparent 60%); opacity: 0.5; }
 
 #back-to-top {
   position: fixed; bottom: 32px; right: 32px; z-index: 50;
@@ -228,15 +230,15 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
 <!-- @section nav -->
 <nav class="sticky top-0 z-50 bg-bg/70 backdrop-blur-xl border-b border-border/50 py-3 px-6 transition-colors duration-300">
   <div class="w-full max-w-container mx-auto flex items-center justify-between gap-4">
-    <a href="https://github.com/Sofian-bll/ept-connectin" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 group shrink-0">
+    <a href="https://github.com/sofian-bll/ept-connectin-java" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 group shrink-0">
       <div class="text-text group-hover:scale-110 transition-transform duration-300 drop-shadow-md">
-        <span class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-[#0a0f0f] font-black text-base">C</span>
+        <img src="assets/logo.svg" alt="ConnectIN" class="w-10 h-10 drop-shadow-md"/>
       </div>
-      <span class="font-bold text-[16px] whitespace-nowrap text-text group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-accent transition-all">Connect'IN</span>
+      <span class="font-bold text-[16px] whitespace-nowrap text-text group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-accent transition-all">ConnectIn-Java</span>
     </a>
 
     <div class="flex items-center gap-3 flex-shrink-0">
-      <a href="https://github.com/Sofian-bll/ept-connectin" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center gap-2 text-xs font-semibold text-muted hover:text-text transition-colors px-4 py-2 rounded-full border border-border bg-surface hover:border-[var(--primary-dim)] hover:bg-elevated">
+      <a href="https://github.com/sofian-bll/ept-connectin-java" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center gap-2 text-xs font-semibold text-muted hover:text-text transition-colors px-4 py-2 rounded-full border border-border bg-surface hover:border-[var(--primary-dim)] hover:bg-elevated">
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
         GitHub
       </a>
@@ -265,15 +267,15 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
 
       <div class="flex items-center gap-2 text-primary uppercase tracking-[0.2em] text-[11px] font-bold mb-8 px-4 py-1.5 rounded-full border border-[var(--primary-dim)] bg-[var(--primary-dimmer)] backdrop-blur-sm">
         <span class="w-1.5 h-1.5 bg-primary rounded-full pulse-dot"></span>
-        Open Source
+        Epitech Project
       </div>
 
       <h1 class="headline text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[1.15] mb-8 max-w-4xl text-gradient">
-        Connect'IN
+        ConnectIn-Java
       </h1>
 
       <p class="text-muted text-lg md:text-xl max-w-2xl leading-relaxed mb-12 font-medium">
-        Réseau social interne pour ESN — API REST Laravel + Vue.js
+        Professional social network API — Spring Boot, JWT, Docker
       </p>
 
       <div class="flex flex-col sm:flex-row gap-4 mb-16 w-full sm:w-auto">
@@ -281,7 +283,7 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
           Quick Start
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
         </a>
-        <a href="https://github.com/Sofian-bll/ept-connectin" target="_blank" rel="noopener noreferrer" class="glass px-8 py-3.5 !rounded-full font-bold text-sm text-text hover:bg-elevated transition-colors flex items-center justify-center gap-2">
+        <a href="https://github.com/sofian-bll/ept-connectin-java" target="_blank" rel="noopener noreferrer" class="glass px-8 py-3.5 !rounded-full font-bold text-sm text-text hover:bg-elevated transition-colors flex items-center justify-center gap-2">
           View on GitHub
         </a>
       </div>
@@ -290,29 +292,29 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-3xl mx-auto pt-12 reveal visible" style="transition-delay:.15s">
 <div class="glass rounded-xl p-4 flex items-center gap-3 text-left">
           <div class="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
           </div>
           <div class="min-w-0">
-            <div class="text-sm"><span class="font-bold text-lg text-primary leading-tight">21</span> <span class="font-semibold text-text">API Endpoints</span></div>
-            <div class="text-[11px] text-muted mt-0.5 leading-tight">RESTful + Bruno docs</div>
+            <div class="text-sm"><span class="font-bold text-lg text-primary leading-tight">6</span> <span class="font-semibold text-text">Modules</span></div>
+            <div class="text-[11px] text-muted mt-0.5 leading-tight">Domain-driven modular monolith</div>
           </div>
         </div>
 <div class="glass rounded-xl p-4 flex items-center gap-3 text-left">
           <div class="w-9 h-9 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center flex-shrink-0">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
           </div>
           <div class="min-w-0">
-            <div class="text-sm"><span class="font-bold text-lg text-secondary leading-tight">4</span> <span class="font-semibold text-text">Modèles</span></div>
-            <div class="text-[11px] text-muted mt-0.5 leading-tight">Post, User, Comment, Like</div>
+            <div class="text-sm"><span class="font-bold text-lg text-secondary leading-tight">21</span> <span class="font-semibold text-text">Endpoints</span></div>
+            <div class="text-[11px] text-muted mt-0.5 leading-tight">REST API + Swagger docs</div>
           </div>
         </div>
 <div class="glass rounded-xl p-4 flex items-center gap-3 text-left">
           <div class="w-9 h-9 rounded-lg bg-accent/10 text-accent flex items-center justify-center flex-shrink-0">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
           </div>
           <div class="min-w-0">
-            <div class="text-sm"><span class="font-bold text-lg text-accent leading-tight">15</span> <span class="font-semibold text-text">Composants Vue</span></div>
-            <div class="text-[11px] text-muted mt-0.5 leading-tight">shadcn-vue + custom</div>
+            <div class="text-sm"><span class="font-bold text-lg text-accent leading-tight">88</span> <span class="font-semibold text-text">Commits</span></div>
+            <div class="text-[11px] text-muted mt-0.5 leading-tight">Since March 2026</div>
           </div>
         </div>
       </div>
@@ -340,7 +342,7 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
 <section class="py-[var(--section-py)] relative">
   <div class="w-full max-w-container mx-auto px-6">
     <div class="text-center max-w-container-sm mx-auto mb-20 reveal">
-      <h2 class="headline text-3xl md:text-5xl font-bold mb-6 tracking-tight">Évolution du Projet</h2>
+      <h2 class="headline text-3xl md:text-5xl font-bold mb-6 tracking-tight">Project Story</h2>
       <div class="text-muted text-lg leading-relaxed"></div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto relative">
@@ -348,17 +350,17 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
             <div class="reveal visible glass rounded-2xl p-6 flex flex-col" style="transition-delay:0.0s">
         <div class="flex items-center gap-2 mb-4">
           <span class="text-[10px] font-mono font-bold uppercase tracking-wider border border-primary/40 text-primary px-2 py-0.5 rounded-full">v1.0.0</span>
-          <span class="text-[10px] font-mono font-bold tracking-wider text-muted uppercase">Juin 2026</span>
+          <span class="text-[10px] font-mono font-bold tracking-wider text-muted uppercase">March - May 2026</span>
         </div>
-        <p class="text-sm text-muted leading-relaxed mb-4 flex-1">API REST Laravel 11 + Vue 3 avec auth JWT, posts, commentaires, likes, profils.</p>
+        <p class="text-sm text-muted leading-relaxed mb-4 flex-1">Full backend migration from Laravel to Java Spring Boot. 21 endpoints, JWT auth, modular monolith.</p>
         
       </div>
       <div class="reveal visible glass rounded-2xl p-6 flex flex-col" style="transition-delay:0.1s">
         <div class="flex items-center gap-2 mb-4">
-          <span class="text-[10px] font-mono font-bold uppercase tracking-wider border border-secondary/40 text-secondary px-2 py-0.5 rounded-full">WIP</span>
-          <span class="text-[10px] font-mono font-bold tracking-wider text-muted uppercase">Roadmap</span>
+          <span class="text-[10px] font-mono font-bold uppercase tracking-wider border border-secondary/40 text-secondary px-2 py-0.5 rounded-full">v1.1.0</span>
+          <span class="text-[10px] font-mono font-bold tracking-wider text-muted uppercase">June 2026</span>
         </div>
-        <p class="text-sm text-muted leading-relaxed mb-4 flex-1">Notifications, messagerie temps réel, fil d'actualité algorithmique.</p>
+        <p class="text-sm text-muted leading-relaxed mb-4 flex-1">Portfolio polish: bilingual README, landing page, GitHub Pages, Bentofolio showcase.</p>
         
       </div>
     </div>
@@ -375,51 +377,51 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
 <section class="py-[var(--section-py)] relative">
   <div class="w-full max-w-container mx-auto px-6">
     <div class="text-center max-w-container-sm mx-auto mb-20 reveal">
-      <h2 class="headline text-3xl md:text-5xl font-bold mb-6 tracking-tight">Fonctionnalités</h2>
+      <h2 class="headline text-3xl md:text-5xl font-bold mb-6 tracking-tight">Features</h2>
       <div class="text-muted text-lg leading-relaxed"></div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="reveal visible glass rounded-2xl p-8 flex flex-col gap-4" style="transition-delay:0.0s">
         <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
         </div>
-        <h3 class="font-bold text-lg">API REST Laravel</h3>
-        <p class="text-muted text-sm leading-relaxed">CRUD complet pour posts, commentaires, likes, utilisateurs. Sanctum JWT auth.</p>
+        <h3 class="font-bold text-lg">JWT Authentication</h3>
+        <p class="text-muted text-sm leading-relaxed">Secure register/login with Spring Security and token-based auth.</p>
       </div>
       <div class="reveal visible glass rounded-2xl p-8 flex flex-col gap-4" style="transition-delay:0.1s">
+        <div class="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+        </div>
+        <h3 class="font-bold text-lg">User Management</h3>
+        <p class="text-muted text-sm leading-relaxed">Profile editing, avatar upload, search, account deletion and anonymization.</p>
+      </div>
+      <div class="reveal visible glass rounded-2xl p-8 flex flex-col gap-4" style="transition-delay:0.2s">
         <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
         </div>
-        <h3 class="font-bold text-lg">Vue 3 + shadcn-vue</h3>
-        <p class="text-muted text-sm leading-relaxed">Interface moderne et accessible, composants réutilisables, dark mode natif.</p>
-      </div>
-      <div class="reveal visible glass rounded-2xl p-8 flex flex-col gap-4" style="transition-delay:0.2s">
-        <div class="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-        </div>
-        <h3 class="font-bold text-lg">Auth JWT Sanctum</h3>
-        <p class="text-muted text-sm leading-relaxed">Authentification sécurisée avec tokens, rate limiting et gestion de sessions.</p>
+        <h3 class="font-bold text-lg">Social Feed</h3>
+        <p class="text-muted text-sm leading-relaxed">CRUD posts with image upload, comments, and like toggling.</p>
       </div>
       <div class="reveal visible glass rounded-2xl p-8 flex flex-col gap-4" style="transition-delay:0.3s">
         <div class="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
         </div>
-        <h3 class="font-bold text-lg">Bruno API Docs</h3>
-        <p class="text-muted text-sm leading-relaxed">Collection complète de 21 requêtes documentées, prête à l'emploi.</p>
+        <h3 class="font-bold text-lg">Team System</h3>
+        <p class="text-muted text-sm leading-relaxed">Create teams, manage members and roles with full access control.</p>
       </div>
       <div class="reveal visible glass rounded-2xl p-8 flex flex-col gap-4" style="transition-delay:0.4s">
         <div class="w-10 h-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
         </div>
-        <h3 class="font-bold text-lg">Tests automatisés</h3>
-        <p class="text-muted text-sm leading-relaxed">Pest PHP pour le backend, Vitest pour le frontend. Architecture TDD-ready.</p>
+        <h3 class="font-bold text-lg">App Cache</h3>
+        <p class="text-muted text-sm leading-relaxed">Spring Caching (@Cacheable/@CacheEvict) for optimized performance.</p>
       </div>
       <div class="reveal visible glass rounded-2xl p-8 flex flex-col gap-4" style="transition-delay:0.5s">
         <div class="w-10 h-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
         </div>
-        <h3 class="font-bold text-lg">Docker</h3>
-        <p class="text-muted text-sm leading-relaxed">Environnement multi-conteneurs : PHP, MySQL, Node.js. Un make up pour tout lancer.</p>
+        <h3 class="font-bold text-lg">Docker Ready</h3>
+        <p class="text-muted text-sm leading-relaxed">Full Dev/Prod containerization with Makefile-driven workflow.</p>
       </div>
     </div>
   </div>
@@ -440,7 +442,7 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
   <div class="w-full max-w-container mx-auto px-6">
     <div class="text-center max-w-container-sm mx-auto mb-16 reveal">
       <h2 class="headline text-3xl md:text-5xl font-bold mb-6 tracking-tight">Quick Start</h2>
-      <div class="text-muted text-lg"><p class="text-muted">Lancez le projet en moins de 2 minutes.</p></div>
+      <div class="text-muted text-lg"><p class="text-muted">Get up and running in under 60 seconds.</p></div>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             <div class="reveal visible glass rounded-2xl overflow-hidden flex flex-col group" style="transition-delay:0.0s">
@@ -448,45 +450,43 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
           <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
           <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
           <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
-          <span class="text-[10px] text-muted ml-2 font-mono uppercase tracking-wider">Clone</span>
+          <span class="text-[10px] text-muted ml-2 font-mono uppercase tracking-wider">Clone & Setup</span>
           <button class="ml-auto text-muted hover:text-primary transition-colors p-1 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100" aria-label="Copy" data-copy="clone">
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
           </button>
         </div>
-        <pre id="code-clone" class="p-6 text-sm text-text leading-relaxed whitespace-pre-wrap overflow-x-hidden"><code class="text-accent">git clone https://github.com/Sofian-bll/ept-connectin.git</code>
-<code class="text-accent">cd ept-connectin</code></pre>
+        <pre id="code-clone" class="p-6 text-sm text-text leading-relaxed whitespace-pre-wrap overflow-x-hidden"><code class="text-accent">git clone git@github.com:sofian-bll/ept-connectin-java.git</code>
+<code class="text-accent">cd connect-in-java</code></pre>
       </div>
       <div class="reveal visible glass rounded-2xl overflow-hidden flex flex-col group" style="transition-delay:0.1s">
         <div class="flex items-center gap-1.5 px-4 py-3 bg-surface border-b border-white/5 rounded-t-2xl">
           <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
           <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
           <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
-          <span class="text-[10px] text-muted ml-2 font-mono uppercase tracking-wider">Backend</span>
-          <button class="ml-auto text-muted hover:text-primary transition-colors p-1 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100" aria-label="Copy" data-copy="backend">
+          <span class="text-[10px] text-muted ml-2 font-mono uppercase tracking-wider">Development</span>
+          <button class="ml-auto text-muted hover:text-primary transition-colors p-1 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100" aria-label="Copy" data-copy="dev">
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
           </button>
         </div>
-        <pre id="code-backend" class="p-6 text-sm text-text leading-relaxed whitespace-pre-wrap overflow-x-hidden"><code class="text-primary">cd backend && cp .env.example .env</code>
-<code class="text-primary">composer install</code>
-<span class="text-muted"># Base de données</span>
-<code class="text-primary">php artisan migrate --seed</code>
-<span class="text-muted"># http://localhost:8000</span>
-<code class="text-primary">php artisan serve</code></pre>
+        <pre id="code-dev" class="p-6 text-sm text-text leading-relaxed whitespace-pre-wrap overflow-x-hidden"><span class="text-muted"># Hot-reload + debug</span>
+<code class="text-primary">make dev</code>
+<span class="text-muted"># Live logs</span>
+<code class="text-primary">make logs</code></pre>
       </div>
       <div class="reveal visible glass rounded-2xl overflow-hidden flex flex-col group" style="transition-delay:0.2s">
         <div class="flex items-center gap-1.5 px-4 py-3 bg-surface border-b border-white/5 rounded-t-2xl">
           <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
           <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
           <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
-          <span class="text-[10px] text-muted ml-2 font-mono uppercase tracking-wider">Frontend</span>
-          <button class="ml-auto text-muted hover:text-primary transition-colors p-1 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100" aria-label="Copy" data-copy="frontend">
+          <span class="text-[10px] text-muted ml-2 font-mono uppercase tracking-wider">Production</span>
+          <button class="ml-auto text-muted hover:text-primary transition-colors p-1 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100" aria-label="Copy" data-copy="prod">
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
           </button>
         </div>
-        <pre id="code-frontend" class="p-6 text-sm text-text leading-relaxed whitespace-pre-wrap overflow-x-hidden"><code class="text-secondary">cd frontend && cp .env.example .env</code>
-<code class="text-secondary">npm install</code>
-<span class="text-muted"># http://localhost:5173</span>
-<code class="text-secondary">npm run dev</code></pre>
+        <pre id="code-prod" class="p-6 text-sm text-text leading-relaxed whitespace-pre-wrap overflow-x-hidden"><span class="text-muted"># Docker production build</span>
+<code class="text-secondary">make prod</code>
+<span class="text-muted"># Live logs</span>
+<code class="text-secondary">make logs</code></pre>
       </div>
     </div>
   </div>
@@ -512,7 +512,7 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
   <div class="w-full max-w-container mx-auto px-6">
     <div class="text-center max-w-container-sm mx-auto mb-16 reveal">
       <h2 class="headline text-3xl md:text-5xl font-bold mb-6 tracking-tight">Architecture</h2>
-      <div class="text-muted text-lg"><p class="text-muted">Structure du projet en un coup d'œil.</p></div>
+      <div class="text-muted text-lg"><p class="text-muted">Project structure at a glance.</p></div>
     </div>
     <div class="reveal max-w-3xl mx-auto" style="transition-delay:.1s">
       <div class="glass overflow-hidden">
@@ -523,24 +523,39 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
           <span class="text-xs text-muted ml-3 font-mono font-medium tracking-wider select-none">project-architecture</span>
         </div>
         <div class="p-6 bg-[#09090b] dark:bg-transparent overflow-x-auto">
-          <pre class="font-mono text-sm leading-loose text-gray-300">connect-in/
-├── backend/
-│   ├── app/
-│   │   ├── Http/Controllers/Api/v1/
-│   │   └── Models/
-│   ├── database/migrations/
-│   ├── routes/
-│   └── tests/
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── views/
-│   │   └── composables/
-│   └── vite.config.js
-├── bruno/
-├── assets/
+          <pre class="font-mono text-sm leading-loose text-gray-300">connect-in-java/
+├── .gitignore
+├── LICENSE
+├── Makefile
 ├── README.md
-└── Makefile</pre>
+├── README.fr.md
+├── assets/
+│   └── logo.svg
+├── backend/
+│   ├── Dockerfile
+│   ├── Dockerfile.dev
+│   ├── mvnw
+│   ├── pom.xml
+│   ├── src/
+│   │   ├── main/java/com/connect_in/backend/
+│   │   │   ├── auth/
+│   │   │   ├── user/
+│   │   │   ├── post/
+│   │   │   ├── comment/
+│   │   │   ├── like/
+│   │   │   ├── team/
+│   │   │   └── shared/
+│   │   └── test/java/com/connect_in/backend/
+│   └── target/
+├── frontend/
+│   └── frontend/        # Vue 3 client
+├── docs/
+│   ├── .nojekyll
+│   ├── assets/
+│   └── index.html
+├── docker-compose.yml
+├── docker-compose.dev.yml
+└── storage/              # Avatars & post images</pre>
         </div>
       </div>
     </div>
@@ -559,18 +574,18 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
   <div class="w-full max-w-container mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
     <div class="flex flex-col items-center md:items-start gap-1 text-xs text-muted">
       <div class="font-semibold text-text">
-        Connect'IN
+        ConnectIn-Java
       </div>
       <div>MIT License &copy; 2026 Sofian</div>
     </div>
     <div class="flex items-center gap-4 text-sm font-medium text-muted">
-      <a href="https://laravel.com/" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/laravel-%23FF2D20.svg?style=flat&logo=laravel&logoColor=white" alt="Laravel" class="h-5"></a>
-        <img src="https://img.shields.io/badge/vuejs-%2335495e.svg?style=flat&logo=vuedotjs&logoColor=%234FC08D" alt="Vue.js" class="h-5">
-        <a href="https://www.php.net/" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/php-%23777BB4.svg?style=flat&logo=php&logoColor=white" alt="PHP" class="h-5"></a>
+      <span class="text-[10px] font-mono border border-border px-3 py-1 rounded-full">java</span>
+        <span class="text-[10px] font-mono border border-border px-3 py-1 rounded-full">spring-boot</span>
         <a href="https://www.docker.com/" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/docker-%230db7ed.svg?style=flat&logo=docker&logoColor=white" alt="Docker" class="h-5"></a>
         <a href="https://www.mysql.com/" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/mysql-%234479A1.svg?style=flat&logo=mysql&logoColor=white" alt="MySQL" class="h-5"></a>
-        <img src="https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=flat&logo=tailwind-css&logoColor=white" alt="TailwindCSS" class="h-5">
-        <img src="https://img.shields.io/badge/vite-%23646CFF.svg?style=flat&logo=vite&logoColor=white" alt="Vite" class="h-5">
+        <img src="https://img.shields.io/badge/vuejs-%2335495e.svg?style=flat&logo=vuedotjs&logoColor=%234FC08D" alt="Vue.js" class="h-5">
+        <span class="text-[10px] font-mono border border-border px-3 py-1 rounded-full">jwt</span>
+        <span class="text-[10px] font-mono border border-border px-3 py-1 rounded-full">maven</span>
     </div>
   </div>
 </footer>

@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Connect'IN</title>
 <meta name="description" content="Réseau social interne pour ESN — API REST Laravel + Vue.js">
-<meta name="theme-color" content="#0a0908">
+<meta name="theme-color" content="#0a0f0f">
 <meta property="og:title" content="Connect'IN">
 <meta property="og:description" content="Réseau social interne pour ESN — API REST Laravel + Vue.js">
 <meta property="og:type" content="website">
@@ -65,34 +65,34 @@ tailwind.config = {
   --section-py: 6rem;
 
   /* Dark theme */
-  --bg: #0a0908;
-  --surface: #131110;
-  --elevated: #1a1715;
-  --border: #2a2725;
-  --text: #f5f0eb;
-  --muted: rgba(245,240,235,0.58);
+  --bg: #0a0f0f;
+  --surface: #0c1a14;
+  --elevated: #122a1e;
+  --border: #1a3328;
+  --text: #f0fdfa;
+  --muted: rgba(240,253,250,0.55);
 
   /* Accents */
   --primary: #10b981;
-  --secondary: #6366f1;
-  --accent: #f59e0b;
+  --secondary: #34d399;
+  --accent: #059669;
 
   --primary-dim: color-mix(in srgb, var(--primary) 20%, transparent);
   --primary-dimmer: color-mix(in srgb, var(--primary) 5%, transparent);
   --primary-glow: color-mix(in srgb, var(--primary) 40%, transparent);
 
   /* Typography */
-  --font-display: "Clash Display", "DM Serif Display", Georgia, serif;
-  --font-body: "Satoshi", "DM Sans", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-display: "Archivo Black", Impact, "Arial Narrow Bold", sans-serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", Consolas, monospace;
 
   /* Light theme */
-  --light-bg: #faf8f5;
+  --light-bg: #f0fdfa;
   --light-surface: #ffffff;
-  --light-elevated: #f0ede8;
-  --light-border: #e0dbd3;
-  --light-text: #1a1815;
-  --light-muted: rgba(26,24,21,0.55);
+  --light-elevated: #ecfdf5;
+  --light-border: #d1fae5;
+  --light-text: #064e3b;
+  --light-muted: rgba(6,78,59,0.55);
 
   /* Effects */
   --glass-blur: 16px;
@@ -180,8 +180,8 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
   opacity: var(--grid-opacity);
 }
 
-.radial-1 { background: radial-gradient(ellipse 80% 60% at 20% 0%, rgba(16,185,129,0.08) 0%, transparent 60%); opacity: 0.5; }
-.radial-2 { background: radial-gradient(ellipse 60% 50% at 85% 100%, rgba(99,102,241,0.05) 0%, transparent 60%); opacity: 0.5; }
+.radial-1 { background: radial-gradient(ellipse 80% 60% at 20% 0%, rgba(16,185,129,0.10) 0%, transparent 60%); opacity: 0.5; }
+.radial-2 { background: radial-gradient(ellipse 60% 50% at 85% 100%, rgba(52,211,153,0.06) 0%, transparent 60%); opacity: 0.5; }
 
 #back-to-top {
   position: fixed; bottom: 32px; right: 32px; z-index: 50;
@@ -230,7 +230,7 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
   <div class="w-full max-w-container mx-auto flex items-center justify-between gap-4">
     <a href="https://github.com/Sofian-bll/ept-connectin" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 group shrink-0">
       <div class="text-text group-hover:scale-110 transition-transform duration-300 drop-shadow-md">
-        <span class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-[#0a0908] font-black text-base">C</span>
+        <span class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-[#0a0f0f] font-black text-base">C</span>
       </div>
       <span class="font-bold text-[16px] whitespace-nowrap text-text group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-accent transition-all">Connect'IN</span>
     </a>
